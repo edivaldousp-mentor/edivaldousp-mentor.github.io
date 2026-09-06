@@ -1,0 +1,603 @@
+<title>Modelos, Cursos e Mentoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --ground:#f6f7f9; --surface:#ffffff; --surface-2:#eef1f6;
+  --ink:#101620; --ink-2:#47505f; --ink-3:#7a8492;
+  --rule:#dde2e9; --rule-soft:#e8ecf1;
+  --accent:#2a78d6; --accent-soft:#e8f0fb;
+  --ok:#1f7a52; --ok-soft:#e4f3ec;
+  --warn:#8a5a12; --warn-soft:#fbf1e0;
+  --shadow:0 1px 2px rgba(16,22,32,.05), 0 8px 24px -12px rgba(16,22,32,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#0e1116; --surface:#161b22; --surface-2:#1c232c;
+    --ink:#e9edf3; --ink-2:#a8b2be; --ink-3:#78828e;
+    --rule:#242c36; --rule-soft:#1e252e;
+    --accent:#3987e5; --accent-soft:#14243a;
+    --ok:#5fbf94; --ok-soft:#122720;
+    --warn:#d9a95c; --warn-soft:#2a2110;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#0e1116; --surface:#161b22; --surface-2:#1c232c;
+  --ink:#e9edf3; --ink-2:#a8b2be; --ink-3:#78828e;
+  --rule:#242c36; --rule-soft:#1e252e;
+  --accent:#3987e5; --accent-soft:#14243a;
+  --ok:#5fbf94; --ok-soft:#122720;
+  --warn:#d9a95c; --warn-soft:#2a2110;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Serif", Georgia, "Times New Roman", serif;
+  font-size:17px; line-height:1.68; -webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,.ui{font-family:"IBM Plex Sans", system-ui, -apple-system, sans-serif;}
+.mono{font-family:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;}
+a{color:var(--accent);}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+.wrap{max-width:1020px; margin:0 auto; padding:0 28px;}
+
+/* ---------- hero ---------- */
+.hero{border-bottom:1px solid var(--rule);
+  background:radial-gradient(120% 130% at 88% -10%, var(--accent-soft) 0%, transparent 60%), var(--surface);}
+.hero__in{padding:66px 0 44px; display:flex; flex-direction:column; gap:20px;}
+.eyebrow{font-family:"IBM Plex Mono", monospace; font-size:11.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--accent); margin:0; font-weight:500;}
+.hero h1{font-size:clamp(31px, 4.8vw, 50px); line-height:1.07; margin:0; font-weight:600;
+  letter-spacing:-0.02em; text-wrap:balance; max-width:19ch;
+  font-family:"IBM Plex Sans", system-ui, sans-serif;}
+.hero h1 .thin{font-weight:300; color:var(--ink-2); display:block;}
+.hero__deck{margin:0; max-width:60ch; color:var(--ink-2); font-size:18.5px;}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:2px;}
+.chip{font-family:"IBM Plex Mono", monospace; font-size:12px; padding:6px 11px;
+  border:1px solid var(--rule); border-radius:2px; background:var(--surface);
+  color:var(--ink-2); white-space:nowrap; font-variant-numeric:tabular-nums;}
+.chip b{color:var(--ink); font-weight:600;}
+
+/* ---------- abas ---------- */
+.tabs{position:sticky; top:0; z-index:20;
+  background:color-mix(in srgb, var(--ground) 90%, transparent);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--rule);}
+.tabs__in{display:flex; gap:2px; align-items:stretch; overflow-x:auto; scrollbar-width:thin;}
+.tab{flex:0 0 auto; display:flex; align-items:center; gap:8px; background:none; cursor:pointer;
+  border:none; border-bottom:2px solid transparent; padding:14px 15px; color:var(--ink-2);
+  font-family:"IBM Plex Sans", sans-serif; font-size:14px; white-space:nowrap;}
+.tab:hover{color:var(--ink); background:var(--surface-2);}
+.tab[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--accent); font-weight:500;}
+.tab__k{font-family:"IBM Plex Mono", monospace; font-size:11px; color:var(--ink-3);
+  font-variant-numeric:tabular-nums;}
+.tab[aria-selected="true"] .tab__k{color:var(--accent);}
+.tabs__cta{margin-left:auto; align-self:center; flex:0 0 auto;}
+
+.panel[hidden]{display:none;}
+.panel{padding:46px 0 92px;}
+.sec-head{max-width:66ch; margin-bottom:34px;}
+.sec-head h2{font-size:clamp(24px, 3.1vw, 31px); line-height:1.16; margin:9px 0 12px;
+  font-weight:600; letter-spacing:-0.015em; text-wrap:balance;}
+.sec-head p{margin:0; color:var(--ink-2);}
+
+/* ---------- item (modelo / curso) ---------- */
+.item{border-top:1px solid var(--rule); padding:30px 0;}
+.item:last-of-type{border-bottom:1px solid var(--rule);}
+.item__top{display:flex; gap:16px; align-items:baseline; flex-wrap:wrap;}
+.item__n{font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:600;
+  color:var(--accent); letter-spacing:.04em; flex:0 0 auto; padding-top:2px;}
+.item h3{font-size:21px; margin:0; font-weight:600; letter-spacing:-0.012em; flex:1 1 22ch;}
+.item__kind{font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--ink-3); flex:0 0 auto;}
+.item__body{margin:12px 0 0; color:var(--ink-2); max-width:68ch;}
+.item__body strong{color:var(--ink); font-weight:600;}
+
+.metrics{display:flex; flex-wrap:wrap; gap:0; margin:20px 0 0;
+  border:1px solid var(--rule); border-radius:3px; background:var(--surface); overflow:hidden;}
+.metric{flex:1 1 120px; padding:12px 15px; border-right:1px solid var(--rule-soft);}
+.metric:last-child{border-right:none;}
+.metric dt{font-family:"IBM Plex Mono", monospace; font-size:10.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--ink-3); margin:0 0 3px;}
+.metric dd{margin:0; font-family:"IBM Plex Mono", monospace; font-size:17px; font-weight:600;
+  color:var(--ink); font-variant-numeric:tabular-nums; line-height:1.3;}
+.metric dd small{font-size:12px; font-weight:400; color:var(--ink-2); font-family:"IBM Plex Sans", sans-serif;}
+
+.finding{margin:18px 0 0; padding:13px 16px; background:var(--accent-soft);
+  border-left:2px solid var(--accent); color:var(--ink-2); font-size:15.5px; max-width:70ch;}
+.finding b{color:var(--ink); font-weight:600; font-family:"IBM Plex Sans", sans-serif;
+  font-size:12px; letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:3px;}
+
+.files{display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 0; align-items:center;}
+.btn{display:inline-flex; align-items:center; gap:7px; text-decoration:none;
+  font-family:"IBM Plex Sans", sans-serif; font-size:13.5px; padding:8px 14px;
+  border-radius:3px; border:1px solid var(--rule); background:var(--surface);
+  color:var(--ink); white-space:nowrap; transition:border-color .15s, background .15s;}
+.btn:hover{border-color:var(--accent); background:var(--surface-2);}
+.btn--go{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:500;}
+.btn--go:hover{background:var(--accent); border-color:var(--accent); filter:brightness(1.08);}
+.btn__ext{font-family:"IBM Plex Mono", monospace; font-size:10.5px; color:var(--ink-3);
+  letter-spacing:.05em;}
+.btn--go .btn__ext{color:rgba(255,255,255,.72);}
+
+/* ---------- nota ---------- */
+.note{margin:0 0 30px; padding:14px 17px; border:1px solid var(--rule); border-radius:3px;
+  background:var(--surface); color:var(--ink-2); font-size:15.5px; max-width:74ch;}
+.note b{color:var(--ink); font-weight:600;}
+
+/* ---------- mentoria ---------- */
+.two{display:grid; grid-template-columns:1fr 1fr; gap:34px; align-items:start;}
+@media (max-width:760px){ .two{grid-template-columns:1fr; gap:26px;} }
+.two h4{font-size:13px; margin:0 0 12px; font-weight:600; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-3);}
+.lst{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px;}
+.lst li{display:flex; gap:11px; color:var(--ink-2); font-size:16px; line-height:1.55;}
+.lst li::before{content:""; flex:0 0 auto; width:6px; height:6px; margin-top:9px; border-radius:50%;
+  background:var(--ok);}
+.lst--no li::before{background:var(--ink-3); border-radius:0; height:2px; margin-top:11px;}
+
+.form-slot{margin-top:34px; border:1px solid var(--rule); border-radius:4px;
+  background:var(--surface); padding:28px; box-shadow:var(--shadow);}
+.form-slot h3{margin:0 0 8px; font-size:20px; font-weight:600; letter-spacing:-0.01em;}
+.form-slot p{margin:0 0 18px; color:var(--ink-2); max-width:58ch;}
+/* ---------- questionário ---------- */
+.form{display:flex; flex-direction:column; gap:24px; font-family:"IBM Plex Sans", sans-serif;}
+.field{display:flex; flex-direction:column; gap:7px;}
+.field > label, .field > .lbl{font-size:13.5px; font-weight:500; color:var(--ink);
+  line-height:1.45;}
+.field .hint{font-size:12.5px; color:var(--ink-3); font-family:"IBM Plex Sans", sans-serif;}
+.req{color:var(--accent); font-weight:600;}
+.row{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+@media (max-width:620px){ .row{grid-template-columns:1fr;} }
+
+.form input[type="text"], .form input[type="email"], .form input[type="url"], .form textarea{
+  font-family:"IBM Plex Sans", sans-serif; font-size:15px; color:var(--ink);
+  background:var(--ground); border:1px solid var(--rule); border-radius:3px;
+  padding:10px 12px; width:100%; transition:border-color .15s;}
+.form textarea{min-height:104px; resize:vertical; line-height:1.55;}
+.form input:focus, .form textarea:focus{outline:none; border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-soft);}
+.form input::placeholder, .form textarea::placeholder{color:var(--ink-3);}
+
+.opts{display:flex; flex-direction:column; gap:2px; margin-top:2px;}
+.opts--wide{display:grid; grid-template-columns:repeat(auto-fill, minmax(168px, 1fr)); gap:2px;}
+.opts--4{grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));}
+.opt{display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:3px;
+  font-size:14.5px; color:var(--ink-2); cursor:pointer; line-height:1.45;
+  transition:background .12s;}
+.opt:hover{background:var(--ground);}
+.opt input{flex:0 0 auto; margin:3px 0 0; accent-color:var(--accent); width:15px; height:15px;}
+.opt:has(input:checked){background:var(--accent-soft); color:var(--ink);}
+
+.consent{display:flex; align-items:flex-start; gap:11px; padding:14px 16px;
+  border:1px solid var(--rule); border-radius:3px; background:var(--ground);
+  font-size:13.5px; color:var(--ink-2); line-height:1.55; cursor:pointer;}
+.consent input{flex:0 0 auto; margin:2px 0 0; accent-color:var(--accent); width:15px; height:15px;}
+
+.submit{align-self:flex-start; font-family:"IBM Plex Sans", sans-serif; font-size:15px;
+  font-weight:500; padding:12px 26px; border-radius:3px; border:1px solid var(--accent);
+  background:var(--accent); color:#fff; cursor:pointer; transition:filter .15s;}
+.submit:hover{filter:brightness(1.08);}
+.hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
+
+footer{border-top:1px solid var(--rule); background:var(--surface);}
+.foot{padding:30px 0 40px; display:flex; flex-wrap:wrap; gap:18px 26px; align-items:baseline;
+  justify-content:space-between;}
+.foot p{margin:0; color:var(--ink-3); font-size:14px;}
+.foot nav{display:flex; gap:18px; flex-wrap:wrap;}
+.foot nav a{font-family:"IBM Plex Sans", sans-serif; font-size:14px; text-decoration:none;
+  color:var(--ink-2); border-bottom:1px solid var(--rule);}
+.foot nav a:hover{color:var(--accent); border-bottom-color:var(--accent);}
+
+@media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+</style>
+
+<header class="hero">
+  <div class="wrap hero__in">
+    <p class="eyebrow">Ciência de dados · crédito, cobrança, compliance e pricing</p>
+    <h1>Edin<span class="thin">Modelos de risco, cursos e mentoria em dados</span></h1>
+    <p class="hero__deck">Cientista de dados sênior no setor bancário. Aqui ficam os estudos de
+      modelagem que desenvolvi de ponta a ponta, os materiais que uso para formar analistas —
+      todos com download livre — e o caminho para a mentoria.</p>
+    <div class="chips">
+      <span class="chip"><b>2</b> estudos de modelagem</span>
+      <span class="chip"><b>4</b> materiais de curso</span>
+      <span class="chip"><b>10.000</b> linhas na base de prática</span>
+      <span class="chip">Excel · SQL · Python · Power BI</span>
+    </div>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="wrap tabs__in" role="tablist" aria-label="Seções do portfólio">
+    <button class="tab" role="tab" id="t-modelos" aria-controls="p-modelos" aria-selected="true">
+      <span class="tab__k">01</span> Modelos desenvolvidos</button>
+    <button class="tab" role="tab" id="t-cursos" aria-controls="p-cursos" aria-selected="false">
+      <span class="tab__k">02</span> Cursos</button>
+    <button class="tab" role="tab" id="t-mentoria" aria-controls="p-mentoria" aria-selected="false">
+      <span class="tab__k">03</span> Mentoria</button>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- ============ MODELOS ============ -->
+  <section class="panel" id="p-modelos" role="tabpanel" aria-labelledby="t-modelos">
+    <div class="sec-head">
+      <p class="eyebrow">Estudos completos</p>
+      <h2>Modelos desenvolvidos</h2>
+      <p>Cada estudo traz o relatório com a metodologia aberta, o notebook que reproduz os
+        números e a planilha que aplica o modelo em produção.</p>
+    </div>
+
+    <p class="note"><b>Sobre os dados.</b> Nenhum estudo aqui usa base de cliente. Em todos, a base
+      é gerada por simulação e o script que a gera vai junto — as premissas ficam visíveis, e
+      qualquer pessoa consegue rodar do zero. O que está em exposição é o método, não o dado.</p>
+
+    <article class="item">
+      <div class="item__top">
+        <span class="item__n">01</span>
+        <h3>Score de propensão a apostar</h3>
+        <span class="item__kind">Regressão logística · supervisionado</span>
+      </div>
+      <p class="item__body">Scorecard clássico de crédito aplicado a um alvo comportamental:
+        estimar a probabilidade de uma pessoa ser apostadora a partir de variáveis
+        socioeconômicas. Discretização por <strong>WOE/IV</strong>, seleção por poder preditivo
+        e colinearidade, conversão para <strong>pontos</strong> (PDO 50, base 500) e validação
+        em safra fora do tempo.</p>
+      <dl class="metrics">
+        <div class="metric"><dt>AUC (teste)</dt><dd>0,6564</dd></div>
+        <div class="metric"><dt>Gini</dt><dd>0,3128</dd></div>
+        <div class="metric"><dt>KS</dt><dd>0,2228</dd></div>
+        <div class="metric"><dt>Brier</dt><dd>0,1093</dd></div>
+        <div class="metric"><dt>Cutoff sugerido</dt><dd>510 <small>máx. Youden</small></dd></div>
+      </dl>
+      <p class="finding"><b>O que o estudo mostrou</b>
+        Na safra fora do tempo a discriminação se manteve, mas a calibração deslocou. É o caso
+        clássico de <strong>recalibrar o intercepto</strong> (+0,1756, equivalente a +12,7 pontos)
+        em vez de remodelar — decisão que economiza um ciclo inteiro de desenvolvimento.</p>
+      <div class="files">
+        <a class="btn btn--go" href="modelos/relatorio_score_apostador.html">Ler o estudo</a>
+        <a class="btn" href="modelos/Score_Apostador.ipynb" download>Notebook <span class="btn__ext">IPYNB</span></a>
+        <a class="btn" href="modelos/Scorecard_Apostador.xlsx" download>Calculadora do scorecard <span class="btn__ext">XLSX</span></a>
+      </div>
+    </article>
+
+    <article class="item">
+      <div class="item__top">
+        <span class="item__n">02</span>
+        <h3>Clusterização de risco em apostas</h3>
+        <span class="item__kind">K-Means · não supervisionado</span>
+      </div>
+      <p class="item__body">Duas perguntas em um estudo. Primeiro, <strong>como rastrear apostas
+        legalizadas no transacional da conta</strong> — a Portaria SPA/MF 615/2024 obriga o
+        depósito a sair de conta da mesma titularidade, o que torna a identificação
+        determinística. Depois, dado que já se sabe que a pessoa aposta, <strong>separar quem
+        joga duas vezes no mês de quem joga compulsivamente</strong>: clusterização em três
+        eixos — frequência de aportes, ticket e comprometimento de renda.</p>
+      <dl class="metrics">
+        <div class="metric"><dt>Base simulada</dt><dd>800.870 <small>transações</small></dd></div>
+        <div class="metric"><dt>Grupos</dt><dd>4 <small>k por silhueta</small></dd></div>
+        <div class="metric"><dt>Grupo intensivo</dt><dd>14,8% <small>dos clientes</small></dd></div>
+        <div class="metric"><dt>Concentra</dt><dd>78,4% <small>da perda líquida</small></dd></div>
+        <div class="metric"><dt>Régua de ação</dt><dd>3 <small>níveis</small></dd></div>
+      </dl>
+      <p class="finding"><b>O que o estudo mostrou</b>
+        Acrescentar quatro variáveis de padrão (madrugada, escalada, aportes no mesmo dia) ao
+        K-Means <strong>piorou a separação nos sete critérios avaliados</strong>. Em vez de
+        forçá-las no modelo, viraram um índice de priorização aplicado <em>dentro</em> do grupo
+        de maior risco — que é onde elas realmente discriminam.</p>
+      <div class="files">
+        <a class="btn btn--go" href="modelos/relatorio_cluster_bets.html">Ler o estudo</a>
+        <a class="btn" href="modelos/Cluster_Bets.ipynb" download>Notebook <span class="btn__ext">IPYNB</span></a>
+        <a class="btn" href="modelos/Regua_Clusterizacao_Bets.xlsx" download>Régua de classificação <span class="btn__ext">XLSX</span></a>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ CURSOS ============ -->
+  <section class="panel" id="p-cursos" role="tabpanel" aria-labelledby="t-cursos" hidden>
+    <div class="sec-head">
+      <p class="eyebrow">Trilha completa · download livre</p>
+      <h2>Do Excel ao Power BI, na ordem</h2>
+      <p>Três cursos que se apoiam no que a pessoa já sabe: quem entende Excel aprende SQL por
+        comparação, quem entende SQL aprende pandas por tradução. Todos usam a mesma base de
+        vendas, então o exemplo do módulo 3 é o mesmo número do módulo 1.</p>
+    </div>
+
+    <article class="item">
+      <div class="item__top">
+        <span class="item__n">Base</span>
+        <h3>Base de vendas para prática</h3>
+        <span class="item__kind">Pré-requisito dos três cursos</span>
+      </div>
+      <p class="item__body">10.000 vendas ao longo de dois anos, com sazonalidade mensal e por dia
+        da semana embutidas — dezembro vende mais, domingo vende menos, e há tendência de
+        crescimento. As colunas derivadas são <strong>fórmulas reais do Excel</strong>, não
+        valores colados, para que o aluno veja o cálculo.</p>
+      <dl class="metrics">
+        <div class="metric"><dt>Linhas</dt><dd>10.000</dd></div>
+        <div class="metric"><dt>Colunas</dt><dd>29</dd></div>
+        <div class="metric"><dt>Fórmulas</dt><dd>90.000</dd></div>
+        <div class="metric"><dt>Clientes</dt><dd>830</dd></div>
+        <div class="metric"><dt>Período</dt><dd>2 <small>anos</small></dd></div>
+      </dl>
+      <div class="files">
+        <a class="btn btn--go" href="cursos/Base_Vendas_Exploracao.xlsx" download>Baixar a base <span class="btn__ext">XLSX</span></a>
+      </div>
+    </article>
+
+    <article class="item">
+      <div class="item__top">
+        <span class="item__n">01</span>
+        <h3>De Excel para SQL</h3>
+        <span class="item__kind">15 seções · 39 consultas</span>
+      </div>
+      <p class="item__body">Cada conceito entra pelo equivalente no Excel: <code class="mono">PROCV</code>
+        vira <code class="mono">JOIN</code>, tabela dinâmica vira <code class="mono">GROUP BY</code>,
+        filtro vira <code class="mono">WHERE</code>. Todas as consultas foram executadas contra o
+        banco que acompanha o curso, e o resultado real de cada uma está na página.</p>
+      <dl class="metrics">
+        <div class="metric"><dt>Seções</dt><dd>15</dd></div>
+        <div class="metric"><dt>Consultas</dt><dd>39</dd></div>
+        <div class="metric"><dt>Tabelas no banco</dt><dd>5</dd></div>
+        <div class="metric"><dt>Formato</dt><dd><small>Página + banco + .sql</small></dd></div>
+      </dl>
+      <div class="files">
+        <a class="btn btn--go" href="cursos/curso_sql.html">Abrir o curso</a>
+        <a class="btn" href="cursos/vendas.db" download>Banco de prática <span class="btn__ext">DB</span></a>
+        <a class="btn" href="cursos/Curso_SQL_consultas.sql" download>Consultas <span class="btn__ext">SQL</span></a>
+      </div>
+    </article>
+
+    <article class="item">
+      <div class="item__top">
+        <span class="item__n">02</span>
+        <h3>De SQL para Python</h3>
+        <span class="item__kind">43 blocos de código · pandas</span>
+      </div>
+      <p class="item__body">Começa pelas bibliotecas e pelo que cada uma resolve, e daí segue
+        traduzindo: <code class="mono">SELECT</code> vira indexação, <code class="mono">GROUP BY</code>
+        vira <code class="mono">groupby</code>, <code class="mono">JOIN</code> vira
+        <code class="mono">merge</code>. Termina em distribuições, séries temporais e gráficos.
+        O notebook roda de cima a baixo sem erro.</p>
+      <dl class="metrics">
+        <div class="metric"><dt>Blocos de código</dt><dd>43</dd></div>
+        <div class="metric"><dt>Gráficos</dt><dd>8</dd></div>
+        <div class="metric"><dt>Bibliotecas</dt><dd>4 <small>base</small></dd></div>
+        <div class="metric"><dt>Formato</dt><dd><small>Página + notebook</small></dd></div>
+      </dl>
+      <div class="files">
+        <a class="btn btn--go" href="cursos/curso_python.html">Abrir o curso</a>
+        <a class="btn" href="cursos/Curso_Python_Analise_de_Dados.ipynb" download>Notebook <span class="btn__ext">IPYNB</span></a>
+      </div>
+    </article>
+
+    <article class="item">
+      <div class="item__top">
+        <span class="item__n">03</span>
+        <h3>De Excel e SQL para Power BI</h3>
+        <span class="item__kind">17 medidas DAX · modelo estrela</span>
+      </div>
+      <p class="item__body">Nos gráficos, a comparação é com o Excel — o mesmo visual, lado a lado,
+        antes e depois. No tratamento de dados, a comparação é com SQL: cada passo do Power Query
+        aparece junto da consulta equivalente. Inclui o modelo em estrela pronto para importar.</p>
+      <dl class="metrics">
+        <div class="metric"><dt>Medidas DAX</dt><dd>17</dd></div>
+        <div class="metric"><dt>Blocos M</dt><dd>2</dd></div>
+        <div class="metric"><dt>Tabelas do modelo</dt><dd>5</dd></div>
+        <div class="metric"><dt>Comparações Excel</dt><dd>4</dd></div>
+      </dl>
+      <div class="files">
+        <a class="btn btn--go" href="cursos/curso_powerbi.html">Abrir o curso</a>
+        <a class="btn" href="cursos/Modelo_PowerBI.xlsx" download>Modelo estrela <span class="btn__ext">XLSX</span></a>
+        <a class="btn" href="cursos/Curso_PowerBI_codigo.txt" download>Medidas DAX e M <span class="btn__ext">TXT</span></a>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ MENTORIA ============ -->
+  <section class="panel" id="p-mentoria" role="tabpanel" aria-labelledby="t-mentoria" hidden>
+    <div class="sec-head">
+      <p class="eyebrow">Acompanhamento individual</p>
+      <h2>Mentoria</h2>
+      <p>Os cursos acima levam alguém do zero até conseguir trabalhar com dados. A mentoria é o
+        passo seguinte: usar isso dentro de um problema real, com alguém que já passou por ele.</p>
+    </div>
+
+    <div class="two">
+      <div>
+        <h4>O que a mentoria cobre</h4>
+        <ul class="lst">
+          <li>Construção de modelo de risco de ponta a ponta — do desenho da variável resposta
+            à régua de decisão.</li>
+          <li>Leitura crítica de resultado: quando o KS está bom mas o modelo não serve, e por quê.</li>
+          <li>Preparação para entrevista técnica em banco e fintech.</li>
+          <li>Revisão de portfólio e do próprio perfil, com foco em o que um gestor de risco
+            procura.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>O que ela não é</h4>
+        <ul class="lst lst--no">
+          <li>Não é aula gravada — os cursos acima já cobrem a parte que dá para gravar.</li>
+          <li>Não é indicação de vaga nem encaminhamento de currículo.</li>
+          <li>Não envolve dado, base ou modelo de nenhuma instituição.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="form-slot">
+      <h3>Quero ser mentorado</h3>
+      <p>Conte em que ponto você está e o que quer destravar. Respondo a todas as inscrições,
+        mesmo quando a resposta é que a mentoria não é o caminho certo naquele momento.</p>
+      <form class="form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="COLE-AQUI-SUA-ACCESS-KEY">
+        <input type="hidden" name="subject" value="Nova inscrição — mentoria em dados">
+        <input type="hidden" name="from_name" value="Site edin — mentoria">
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+        <div class="row">
+          <div class="field">
+            <label for="q-nome">Nome completo <span class="req">*</span></label>
+            <input type="text" id="q-nome" name="Nome" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="q-email">E-mail <span class="req">*</span></label>
+            <input type="email" id="q-email" name="E-mail" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="q-linkedin">LinkedIn</label>
+          <input type="url" id="q-linkedin" name="LinkedIn"
+                 placeholder="https://www.linkedin.com/in/..." autocomplete="url">
+          <span class="hint">Ajuda mais que currículo — dá para ver o caminho que você já fez.</span>
+        </div>
+
+        <div class="field">
+          <span class="lbl">Em que momento você está <span class="req">*</span></span>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="Momento" value="Transicao" required>
+              Estou em transição para dados, vindo de outra área</label>
+            <label class="opt"><input type="radio" name="Momento" value="Junior">
+              Analista de dados júnior — até 2 anos na área</label>
+            <label class="opt"><input type="radio" name="Momento" value="Pleno">
+              Analista pleno — 2 a 5 anos, quero subir de nível</label>
+            <label class="opt"><input type="radio" name="Momento" value="Migrar risco">
+              Já trabalho com dados e quero migrar para crédito e risco</label>
+            <label class="opt"><input type="radio" name="Momento" value="Cientista">
+              Já sou cientista de dados e quero aprofundar em modelagem de risco</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="q-cargo">Cargo e setor onde você está hoje</label>
+          <input type="text" id="q-cargo" name="Cargo e setor"
+                 placeholder="ex.: analista de cobrança em fintech; professor; estudante">
+        </div>
+
+        <div class="field">
+          <span class="lbl">Ferramentas que você já usa no dia a dia</span>
+          <span class="hint">Marque só o que você usa de verdade, não o que já viu uma vez.</span>
+          <div class="opts opts--wide opts--4">
+            <label class="opt"><input type="checkbox" name="Ferramentas" value="Excel"> Excel</label>
+            <label class="opt"><input type="checkbox" name="Ferramentas" value="SQL"> SQL</label>
+            <label class="opt"><input type="checkbox" name="Ferramentas" value="Python"> Python</label>
+            <label class="opt"><input type="checkbox" name="Ferramentas" value="R"> R</label>
+            <label class="opt"><input type="checkbox" name="Ferramentas" value="SAS"> SAS</label>
+            <label class="opt"><input type="checkbox" name="Ferramentas" value="Power BI / Tableau"> Power BI ou Tableau</label>
+            <label class="opt"><input type="checkbox" name="Ferramentas" value="Nenhuma ainda"> Nenhuma ainda</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="lbl">Qual seria o foco principal da mentoria <span class="req">*</span></span>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="Foco" value="Primeiro modelo" required>
+              Construir meu primeiro modelo de risco de ponta a ponta</label>
+            <label class="opt"><input type="radio" name="Foco" value="Melhorar modelo">
+              Melhorar um modelo que eu já rodo e não está performando</label>
+            <label class="opt"><input type="radio" name="Foco" value="Migrar de area">
+              Montar o caminho para entrar em crédito, cobrança ou pricing</label>
+            <label class="opt"><input type="radio" name="Foco" value="Entrevista">
+              Me preparar para entrevista técnica em banco ou fintech</label>
+            <label class="opt"><input type="radio" name="Foco" value="Outro">
+              Outra coisa — explico abaixo</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="q-destravar">O que você quer destravar nos próximos três meses <span class="req">*</span></label>
+          <textarea id="q-destravar" name="O que quer destravar" required
+            placeholder="Seja concreto. &quot;Quero aprender Python&quot; me diz pouco; &quot;preciso entregar um modelo de propensão até dezembro e travei na definição da variável resposta&quot; me diz o que fazer no primeiro encontro."></textarea>
+        </div>
+
+        <div class="field">
+          <span class="lbl">Quanto tempo por semana você consegue dedicar <span class="req">*</span></span>
+          <span class="hint">Resposta honesta ajuda os dois. Não existe resposta errada aqui.</span>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="Tempo semanal" value="Ate 2h" required>
+              Até 2 horas</label>
+            <label class="opt"><input type="radio" name="Tempo semanal" value="2 a 5h">
+              De 2 a 5 horas</label>
+            <label class="opt"><input type="radio" name="Tempo semanal" value="Mais de 5h">
+              Mais de 5 horas</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="lbl">Como você chegou até aqui</span>
+          <div class="opts opts--wide">
+            <label class="opt"><input type="radio" name="Origem" value="Post LinkedIn"> Post no LinkedIn</label>
+            <label class="opt"><input type="radio" name="Origem" value="Perfil LinkedIn"> Perfil no LinkedIn</label>
+            <label class="opt"><input type="radio" name="Origem" value="Indicacao"> Indicação de alguém</label>
+            <label class="opt"><input type="radio" name="Origem" value="Busca"> Busca na internet</label>
+            <label class="opt"><input type="radio" name="Origem" value="Outro"> Outro</label>
+          </div>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" name="Consentimento" value="Sim" required>
+          Autorizo o contato por e-mail sobre esta inscrição. Os dados enviados aqui são usados
+          só para responder e organizar a mentoria — não vão para lista de disparo nem para
+          terceiros, e você pode pedir a exclusão a qualquer momento. <span class="req">*</span>
+        </label>
+
+        <button type="submit" class="submit">Enviar inscrição</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <p>Materiais com download livre. Bases sintéticas, geradas por script — nenhum dado real de
+      cliente ou instituição.</p>
+    <nav>
+      <a href="https://www.linkedin.com/in/edivaldo-leite-67241a135/">LinkedIn</a>
+      <a href="https://github.com/edivaldousp-mentor">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var mapa = { 'modelos': 0, 'cursos': 1, 'mentoria': 2 };
+
+  function mostrar(i, atualizarHash) {
+    tabs.forEach(function (t, k) {
+      var sel = k === i;
+      t.setAttribute('aria-selected', sel ? 'true' : 'false');
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !sel;
+    });
+    if (atualizarHash) {
+      var nome = Object.keys(mapa)[i];
+      if (history.replaceState) history.replaceState(null, '', '#' + nome);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { mostrar(i, true); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      var alvo = (i + d + tabs.length) % tabs.length;
+      tabs[alvo].focus();
+      mostrar(alvo, true);
+    });
+  });
+
+  var inicial = mapa[(location.hash || '').replace('#', '')];
+  if (inicial !== undefined) mostrar(inicial, false);
+})();
+</script>

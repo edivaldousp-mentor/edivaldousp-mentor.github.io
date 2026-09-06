@@ -1,0 +1,285 @@
+CURSO: DO EXCEL E DO SQL AO POWER BI
+Todo o codigo M (Power Query) e DAX do curso, na ordem em que aparece.
+Modelo: Modelo_PowerBI.xlsx (5 abas). Conferencia: vendas.db.
+
+
+
+======================================================================
+Módulo 0 — Três programas dentro de um arquivo
+======================================================================
+
+
+======================================================================
+Módulo 1 — Power Query: o seu SELECT antes de carregar
+======================================================================
+
+-- [M]
+let
+    Origem      = Excel.Workbook(File.Contents("C:\dados\Modelo_PowerBI.xlsx"), null, true),
+    vendas_aba  = Origem{[Item = "vendas", Kind = "Sheet"]}[Data],
+    Cabecalho   = Table.PromoteHeaders(vendas_aba, [PromoteAllScalars = true]),
+    Tipos       = Table.TransformColumnTypes(Cabecalho, {
+                      {"data_venda", type date},
+                      {"valor_venda", type number},
+                      {"quantidade", Int64.Type}
+                  }),
+    Concluidas  = Table.SelectRows(Tipos, each [status_pedido] = "Concluida")
+in
+    Concluidas
+
+-- [M]
+let
+    Mesclado  = Table.NestedJoin(vendas, {"id_cliente"},
+                                 clientes, {"id_cliente"},
+                                 "dados_cliente", JoinKind.LeftOuter),
+    Expandido = Table.ExpandTableColumn(Mesclado, "dados_cliente",
+                                        {"nome", "regiao", "segmento"},
+                                        {"cliente", "regiao", "segmento"})
+in
+    Expandido
+
+
+======================================================================
+Módulo 2 — O modelo: o JOIN que você desenha uma vez
+======================================================================
+
+
+======================================================================
+Módulo 3 — A tabela calendário
+======================================================================
+
+-- [DAX]
+d_Calendario =
+VAR MinData = MIN( f_Vendas[data_venda] )
+VAR MaxData = MAX( f_Vendas[data_venda] )
+RETURN
+ADDCOLUMNS(
+    CALENDAR( MinData, MaxData ),
+    "Ano",         YEAR( [Date] ),
+    "Mes",         MONTH( [Date] ),
+    "MesNome",     FORMAT( [Date], "mmm" ),
+    "AnoMes",      FORMAT( [Date], "yyyy-mm" ),
+    "Trimestre",   "T" & QUARTER( [Date] ),
+    "DiaSemana",   FORMAT( [Date], "ddd" )
+)
+
+
+======================================================================
+Módulo 4 — Coluna calculada × medida
+======================================================================
+
+-- [DAX]
+-- COLUNA: classifica cada venda. Serve para virar eixo, segmentação, filtro.
+Faixa de Desconto =
+SWITCH(
+    TRUE(),
+    f_Vendas[desconto_pct] = 0     , "Sem desconto",
+    f_Vendas[desconto_pct] <= 0.05 , "Ate 5%",
+    f_Vendas[desconto_pct] <= 0.10 , "5 a 10%",
+    f_Vendas[desconto_pct] <= 0.20 , "10 a 20%",
+    "Acima de 20%"
+)
+
+-- [DAX]
+-- MEDIDA: só faz sentido somado, e o número muda conforme o filtro do visual.
+Receita = SUM( f_Vendas[valor_venda] )
+
+
+======================================================================
+Módulo 5 — DAX: o SUM que já sabe o GROUP BY
+======================================================================
+
+-- [DAX]
+Receita = SUM( f_Vendas[valor_venda] )
+
+-- [DAX]
+Receita = SUM( f_Vendas[valor_venda] )
+
+-- num visual de matriz com d_Produtos[categoria] nas linhas
+
+-- [SQL equivalente, para conferencia]
+SELECT p.categoria, ROUND(SUM(v.valor_venda), 2) AS receita
+FROM vendas v
+JOIN produtos p ON v.id_produto = p.id_produto
+GROUP BY p.categoria
+ORDER BY receita DESC;
+
+-- [DAX]
+Pedidos          = COUNTROWS( f_Vendas )
+Clientes Únicos  = DISTINCTCOUNT( f_Vendas[id_cliente] )
+Margem           = SUM( f_Vendas[margem_valor] )
+Ticket Médio     = DIVIDE( [Receita], [Pedidos] )
+Margem %         = DIVIDE( [Margem], [Receita] )
+
+-- [DAX]
+Ticket Médio = DIVIDE( [Receita], [Pedidos] )
+Margem %     = DIVIDE( [Margem], [Receita] )
+
+-- num visual com f_Vendas[canal_venda] nas linhas
+
+-- [SQL equivalente, para conferencia]
+SELECT
+    canal_venda,
+    COUNT(*)                                            AS pedidos,
+    ROUND(SUM(valor_venda), 2)                          AS receita,
+    ROUND(SUM(valor_venda) * 1.0 / COUNT(*), 2)         AS ticket_medio,
+    ROUND(SUM(margem_valor) / SUM(valor_venda), 4)      AS margem_pct
+FROM vendas
+GROUP BY canal_venda
+ORDER BY receita DESC;
+
+
+======================================================================
+Módulo 6 — CALCULATE: o WHERE que você pluga na medida
+======================================================================
+
+-- [DAX]
+Receita Concluída =
+CALCULATE( [Receita], f_Vendas[status_pedido] = "Concluida" )
+
+-- [DAX]
+Receita E-commerce 2025 =
+CALCULATE(
+    [Receita],
+    f_Vendas[canal_venda]   = "E-commerce",
+    f_Vendas[status_pedido] = "Concluida",
+    d_Calendario[Ano]       = 2025
+)
+
+-- [DAX]
+Receita Concluída = CALCULATE( [Receita], f_Vendas[status_pedido] = "Concluida" )
+Taxa de Perda     = DIVIDE( [Receita] - [Receita Concluída], [Receita] )
+
+-- num visual com f_Vendas[canal_venda] nas linhas
+
+-- [SQL equivalente, para conferencia]
+SELECT
+    canal_venda,
+    ROUND(SUM(valor_venda), 2)                                              AS receita,
+    ROUND(SUM(CASE WHEN status_pedido = 'Concluida'
+                   THEN valor_venda ELSE 0 END), 2)                         AS receita_concluida,
+    ROUND(1 - SUM(CASE WHEN status_pedido = 'Concluida'
+                       THEN valor_venda ELSE 0 END) / SUM(valor_venda), 4)  AS taxa_de_perda
+FROM vendas
+GROUP BY canal_venda
+ORDER BY taxa_de_perda DESC;
+
+-- [DAX]
+% do Total =
+DIVIDE(
+    [Receita],
+    CALCULATE( [Receita], REMOVEFILTERS( d_Clientes ) )
+)
+
+-- [DAX]
+% do Total = DIVIDE( [Receita], CALCULATE( [Receita], REMOVEFILTERS( d_Clientes ) ) )
+
+-- num visual com d_Clientes[regiao] nas linhas
+
+-- [SQL equivalente, para conferencia]
+SELECT
+    c.regiao,
+    ROUND(SUM(v.valor_venda), 2)                                        AS receita,
+    ROUND(SUM(v.valor_venda) * 100.0 / SUM(SUM(v.valor_venda)) OVER (), 2) AS pct_do_total
+FROM vendas v
+JOIN clientes c ON v.id_cliente = c.id_cliente
+GROUP BY c.regiao
+ORDER BY receita DESC;
+
+-- [DAX]
+Receita de Clientes Grandes =
+CALCULATE(
+    [Receita],
+    FILTER(
+        VALUES( d_Clientes[id_cliente] ),
+        [Receita] > 250000
+    )
+)
+
+-- [DAX]
+Posição da Categoria =
+RANKX(
+    ALL( d_Produtos[categoria] ),
+    [Receita],
+    ,
+    DESC
+)
+
+-- [DAX]
+Posição da Categoria = RANKX( ALL( d_Produtos[categoria] ), [Receita], , DESC )
+
+-- num visual com d_Produtos[categoria] nas linhas
+
+-- [SQL equivalente, para conferencia]
+SELECT
+    p.categoria,
+    ROUND(SUM(v.valor_venda), 2) AS receita,
+    ROW_NUMBER() OVER (ORDER BY SUM(v.valor_venda) DESC) AS posicao
+FROM vendas v
+JOIN produtos p ON v.id_produto = p.id_produto
+GROUP BY p.categoria
+ORDER BY posicao;
+
+
+======================================================================
+Módulo 7 — Inteligência de tempo: o LAG sem escrever a janela
+======================================================================
+
+-- [DAX]
+Receita Ano Anterior =
+CALCULATE( [Receita], SAMEPERIODLASTYEAR( d_Calendario[Date] ) )
+
+Variação vs Ano Anterior =
+DIVIDE( [Receita] - [Receita Ano Anterior], [Receita Ano Anterior] )
+
+Receita YTD =
+TOTALYTD( [Receita], d_Calendario[Date] )
+
+Receita Mês Anterior =
+CALCULATE( [Receita], DATEADD( d_Calendario[Date], -1, MONTH ) )
+
+-- [DAX]
+Receita Ano Anterior     = CALCULATE( [Receita], SAMEPERIODLASTYEAR( d_Calendario[Date] ) )
+Variação vs Ano Anterior = DIVIDE( [Receita] - [Receita Ano Anterior], [Receita Ano Anterior] )
+
+-- num visual com d_Calendario[AnoMes] nas linhas
+
+-- [SQL equivalente, para conferencia]
+WITH mensal AS (
+    SELECT strftime('%Y-%m', data_venda) AS mes, SUM(valor_venda) AS receita
+    FROM vendas GROUP BY mes
+)
+SELECT
+    mes,
+    ROUND(receita, 2)                                                   AS receita,
+    ROUND(LAG(receita, 12) OVER (ORDER BY mes), 2)                      AS ano_anterior,
+    ROUND(receita / LAG(receita, 12) OVER (ORDER BY mes) - 1, 4)        AS variacao
+FROM mensal
+WHERE mes >= '2025-01'
+ORDER BY mes
+LIMIT 8;
+
+
+======================================================================
+Módulo 8 — Os visuais: do Excel para o Power BI
+======================================================================
+
+
+======================================================================
+Módulo 9 — A matriz é a sua tabela dinâmica
+======================================================================
+
+
+======================================================================
+Módulo 10 — Os erros que valem conhecer antes de cometer
+======================================================================
+
+
+======================================================================
+Módulo 11 — Exercícios
+======================================================================
+
+
+======================================================================
+Cola de bolso: Excel → SQL → Power BI
+======================================================================
