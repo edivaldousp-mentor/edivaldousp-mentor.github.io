@@ -1,7 +1,10 @@
 # Portfólio — modelos, cursos e mentoria
 
-Site estático, três abas: **Modelos desenvolvidos**, **Cursos** e **Mentoria**.
-Hospedagem no GitHub Pages, sem custo e sem domínio próprio.
+Site estático, quatro abas: **Sobre mim**, **Modelos desenvolvidos**, **Cursos** e
+**Mentoria**. Hospedagem no GitHub Pages, sem custo e sem domínio próprio.
+
+Esta versão substitui a anterior por completo: sobe tudo por cima, é para isso que o
+pacote vem inteiro.
 
 ---
 
@@ -44,35 +47,21 @@ pasta como um blog e ignore arquivos. Não apague.
 
 ---
 
-## Passo 4 — Ativar o questionário da mentoria
+## Passo 4 — O questionário da mentoria já está ligado
 
-Nome, GitHub e LinkedIn já estão preenchidos. **Só falta este passo**, e ele é uma
-linha só.
+A chave do [Web3Forms](https://web3forms.com) já está no `index.html`, então cada
+inscrição cai direto no seu e-mail com todos os campos preenchidos. **Faça um envio de
+teste depois de publicar**, só para ver a mensagem chegar.
 
-O questionário já está montado dentro do `index.html` — com o visual do site, não
-num iframe de fora. O que falta é dizer para onde as respostas vão. Site estático não
-recebe envio de formulário, então usamos um serviço que faz esse repasse. O
-[Web3Forms](https://web3forms.com) é grátis até 250 respostas por mês e **não exige
-criar conta**: você informa o e-mail e ele te manda uma chave.
-
-1. Entre em [web3forms.com](https://web3forms.com), digite seu e-mail e clique em
-   criar a chave de acesso.
-2. Confira a caixa de entrada — a chave chega por e-mail. É um código longo, tipo
-   `a1b2c3d4-5e6f-7890-abcd-ef1234567890`.
-3. Em `index.html`, procure por:
+A chave fica visível para quem abrir o código-fonte da página, e é assim que o serviço
+funciona: ela diz para onde mandar, não dá acesso a nada seu. Se um dia começar a chegar
+spam, gere outra chave no site e troque esta linha:
 
 ```html
-<input type="hidden" name="access_key" value="COLE-AQUI-SUA-ACCESS-KEY">
+<input type="hidden" name="access_key" value="...">
 ```
 
-4. Troque `COLE-AQUI-SUA-ACCESS-KEY` pela chave. Pronto — cada inscrição cai direto
-   no seu e-mail, com todos os campos preenchidos.
-
-**Enquanto a chave não estiver lá, o formulário aparece bonito mas não envia nada.**
-Faça um envio de teste depois de trocar.
-
-Seu e-mail não fica exposto no código do site — quem inspecionar a página vê só a
-chave, e a chave sozinha não serve para receber nada.
+O plano gratuito cobre 250 respostas por mês.
 
 ### Se preferir um painel em vez de e-mail
 
@@ -87,7 +76,7 @@ são exatamente as que estão no `index.html`.
 ## Estrutura
 
 ```
-index.html                     o site (as três abas)
+index.html                     o site (as quatro abas)
 .nojekyll                      não apagar
 cursos/
   Base_Vendas_Exploracao.xlsx  base de prática dos três cursos
@@ -100,15 +89,22 @@ cursos/
   Modelo_PowerBI.xlsx          modelo estrela para importar
   Curso_PowerBI_codigo.txt     17 medidas DAX + 2 blocos M
 modelos/
-  relatorio_score_apostador.html
+  relatorio_score_apostador.html      01 · score de propensão a apostar
   Score_Apostador.ipynb
   Scorecard_Apostador.xlsx
-  relatorio_cluster_bets.html
+  relatorio_cluster_bets.html         02 · clusterização de risco em apostas
   Cluster_Bets.ipynb
   Regua_Clusterizacao_Bets.xlsx
+  relatorio_restritivos_gs.html       03 · grau de severidade de restritivos
+  GS_Restritivos.ipynb
+  Grau_Severidade_Restritivos.xlsx
+  relatorio_previsao_volume.html      04 · previsão de volume
+  Previsao_Volume.ipynb
+  Planejamento_Producao.xlsx
+  relatorio_renda.html                05 · estimação de renda (só o relatório)
 ```
 
-Total: ~12 MB. Os limites do GitHub Pages são 1 GB de site e 100 GB de tráfego por mês,
+Total: ~24 MB. Os limites do GitHub Pages são 1 GB de site e 100 GB de tráfego por mês,
 então há folga de sobra para crescer.
 
 ---
@@ -122,6 +118,7 @@ então há folga de sobra para crescer.
 As abas têm endereço próprio, então o post pode mandar a pessoa direto ao ponto:
 
 ```
+https://edivaldousp-mentor.github.io/#sobre
 https://edivaldousp-mentor.github.io/#modelos
 https://edivaldousp-mentor.github.io/#cursos
 https://edivaldousp-mentor.github.io/#mentoria

@@ -1,243 +1,483 @@
+<link rel="icon" type="image/png" href="img/favicon.png">
 <title>Modelos, Cursos e Mentoria</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap">
 <style>
 :root{
-  color-scheme: light;
-  --ground:#f6f7f9; --surface:#ffffff; --surface-2:#eef1f6;
-  --ink:#101620; --ink-2:#47505f; --ink-3:#7a8492;
-  --rule:#dde2e9; --rule-soft:#e8ecf1;
-  --accent:#2a78d6; --accent-soft:#e8f0fb;
-  --ok:#1f7a52; --ok-soft:#e4f3ec;
-  --warn:#8a5a12; --warn-soft:#fbf1e0;
-  --shadow:0 1px 2px rgba(16,22,32,.05), 0 8px 24px -12px rgba(16,22,32,.18);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    color-scheme: dark;
-    --ground:#0e1116; --surface:#161b22; --surface-2:#1c232c;
-    --ink:#e9edf3; --ink-2:#a8b2be; --ink-3:#78828e;
-    --rule:#242c36; --rule-soft:#1e252e;
-    --accent:#3987e5; --accent-soft:#14243a;
-    --ok:#5fbf94; --ok-soft:#122720;
-    --warn:#d9a95c; --warn-soft:#2a2110;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
-  }
-}
-:root[data-theme="dark"]{
   color-scheme: dark;
-  --ground:#0e1116; --surface:#161b22; --surface-2:#1c232c;
-  --ink:#e9edf3; --ink-2:#a8b2be; --ink-3:#78828e;
-  --rule:#242c36; --rule-soft:#1e252e;
-  --accent:#3987e5; --accent-soft:#14243a;
-  --ok:#5fbf94; --ok-soft:#122720;
-  --warn:#d9a95c; --warn-soft:#2a2110;
-  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  --ground:#17110d; --ground-2:#120d0a;
+  --surface:#1f1811; --surface-2:#292019;
+  --ink:#f4ece1; --ink-2:#b9a794; --ink-3:#8b7a69;
+  --rule:#332619; --rule-soft:#251b13;
+  --amber:#f5b335; --amber-soft:#2a1e0c;
+  --mint:#35dfae; --mint-soft:#0f2b23;
+  --pink:#ff4f8b;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 18px 40px -26px rgba(0,0,0,.9);
+  --sans:"Space Grotesk", "IBM Plex Sans", system-ui, sans-serif;
+  --texto:"IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 *{box-sizing:border-box}
 body{margin:0; background:var(--ground); color:var(--ink);
-  font-family:"IBM Plex Serif", Georgia, "Times New Roman", serif;
-  font-size:17px; line-height:1.68; -webkit-font-smoothing:antialiased;}
-h1,h2,h3,h4,.ui{font-family:"IBM Plex Sans", system-ui, -apple-system, sans-serif;}
-.mono{font-family:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;}
-a{color:var(--accent);}
-:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+  font-family:var(--texto); font-size:16.5px; line-height:1.7;
+  -webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,.ui{font-family:var(--sans); letter-spacing:-0.02em;}
+.mono{font-family:var(--mono);}
+a{color:var(--amber);}
+:focus-visible{outline:2px solid var(--mint); outline-offset:2px;}
+::selection{background:var(--amber); color:#17110d;}
 
-.wrap{max-width:1020px; margin:0 auto; padding:0 28px;}
+.wrap{max-width:1000px; margin:0 auto; padding:0 28px;}
 
-/* ---------- hero ---------- */
-.hero{border-bottom:1px solid var(--rule);
-  background:radial-gradient(120% 130% at 88% -10%, var(--accent-soft) 0%, transparent 60%), var(--surface);}
-.hero__in{padding:66px 0 44px; display:flex; flex-direction:column; gap:20px;}
-.eyebrow{font-family:"IBM Plex Mono", monospace; font-size:11.5px; letter-spacing:.16em;
-  text-transform:uppercase; color:var(--accent); margin:0; font-weight:500;}
-.hero h1{font-size:clamp(31px, 4.8vw, 50px); line-height:1.07; margin:0; font-weight:600;
-  letter-spacing:-0.02em; text-wrap:balance; max-width:19ch;
-  font-family:"IBM Plex Sans", system-ui, sans-serif;}
-.hero h1 .thin{font-weight:300; color:var(--ink-2); display:block;}
-.hero__deck{margin:0; max-width:60ch; color:var(--ink-2); font-size:18.5px;}
-.chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:2px;}
-.chip{font-family:"IBM Plex Mono", monospace; font-size:12px; padding:6px 11px;
-  border:1px solid var(--rule); border-radius:2px; background:var(--surface);
-  color:var(--ink-2); white-space:nowrap; font-variant-numeric:tabular-nums;}
-.chip b{color:var(--ink); font-weight:600;}
+/* ---------- topo ---------- */
+.hero{position:relative; overflow:hidden; border-bottom:1px solid var(--rule);
+  background:
+    radial-gradient(80% 120% at 50% -25%, #3a2a12 0%, transparent 62%),
+    radial-gradient(60% 90% at 12% 8%, #2a1c10 0%, transparent 58%),
+    var(--ground-2);}
+.hero__in{padding:74px 0 58px; display:flex; flex-direction:column; align-items:center;
+  gap:22px; text-align:center;}
+
+.marca{width:230px; height:104px; display:block;}
+.marca .cel{fill:#efe6d7; opacity:0;}
+.marca .cel-topo{fill:var(--amber);}
+.marca .barra{opacity:0;}
+.marca .doispontos{fill:#efe6d7; opacity:0;}
+
+.hero h1{font-size:clamp(30px, 5vw, 46px); line-height:1.08; margin:0; font-weight:700;
+  max-width:17ch; text-wrap:balance; color:var(--amber);}
+.hero h1 .thin{display:block; font-weight:400; font-size:.56em; color:var(--ink);
+  letter-spacing:-0.01em; margin-top:10px;}
+.hero__deck{margin:0; max-width:58ch; color:var(--ink-2); font-size:17px;}
+.eyebrow{font-family:var(--mono); font-size:11.5px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--mint); margin:0; font-weight:500;}
+
+.chips{display:flex; flex-wrap:wrap; gap:26px 44px; justify-content:center; margin-top:10px;}
+.chip{display:flex; flex-direction:column-reverse; align-items:center; gap:4px;
+  font-family:var(--texto); font-size:12.5px; color:var(--ink-3); text-align:center;
+  max-width:16ch; line-height:1.35;}
+.chip b{font-family:var(--mono); font-size:27px; font-weight:600; color:var(--ink);
+  font-variant-numeric:tabular-nums; letter-spacing:-0.01em;}
+.chip--texto{font-family:var(--mono); font-size:11.5px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--mint); max-width:none; justify-content:center;}
 
 /* ---------- abas ---------- */
 .tabs{position:sticky; top:0; z-index:20;
-  background:color-mix(in srgb, var(--ground) 90%, transparent);
-  backdrop-filter:blur(10px); border-bottom:1px solid var(--rule);}
-.tabs__in{display:flex; gap:2px; align-items:stretch; overflow-x:auto; scrollbar-width:thin;}
-.tab{flex:0 0 auto; display:flex; align-items:center; gap:8px; background:none; cursor:pointer;
-  border:none; border-bottom:2px solid transparent; padding:14px 15px; color:var(--ink-2);
-  font-family:"IBM Plex Sans", sans-serif; font-size:14px; white-space:nowrap;}
-.tab:hover{color:var(--ink); background:var(--surface-2);}
-.tab[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--accent); font-weight:500;}
-.tab__k{font-family:"IBM Plex Mono", monospace; font-size:11px; color:var(--ink-3);
+  background:color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter:blur(12px); border-bottom:1px solid var(--rule);}
+.tabs__in{display:flex; gap:4px; align-items:stretch; overflow-x:auto; scrollbar-width:thin;}
+.tab{position:relative; flex:0 0 auto; display:flex; align-items:center; gap:9px;
+  background:none; cursor:pointer; border:none; padding:15px 16px; color:var(--ink-3);
+  font-family:var(--sans); font-size:14.5px; font-weight:500; white-space:nowrap;
+  transition:color .18s;}
+.tab::after{content:""; position:absolute; left:16px; right:16px; bottom:0; height:2px;
+  background:var(--amber); transform:scaleX(0); transform-origin:left;
+  transition:transform .28s cubic-bezier(.2,.7,.3,1);}
+.tab:hover{color:var(--ink-2);}
+.tab[aria-selected="true"]{color:var(--ink);}
+.tab[aria-selected="true"]::after{transform:scaleX(1);}
+.tab__k{font-family:var(--mono); font-size:11px; color:var(--ink-3);
   font-variant-numeric:tabular-nums;}
-.tab[aria-selected="true"] .tab__k{color:var(--accent);}
-.tabs__cta{margin-left:auto; align-self:center; flex:0 0 auto;}
+.tab[aria-selected="true"] .tab__k{color:var(--amber);}
 
 .panel[hidden]{display:none;}
-.panel{padding:46px 0 92px;}
-.sec-head{max-width:66ch; margin-bottom:34px;}
-.sec-head h2{font-size:clamp(24px, 3.1vw, 31px); line-height:1.16; margin:9px 0 12px;
-  font-weight:600; letter-spacing:-0.015em; text-wrap:balance;}
+.panel{padding:52px 0 96px;}
+.sec-head{max-width:64ch; margin-bottom:32px;}
+.sec-head h2{font-size:clamp(25px, 3.2vw, 33px); line-height:1.14; margin:11px 0 13px;
+  font-weight:700; text-wrap:balance;}
 .sec-head p{margin:0; color:var(--ink-2);}
 
-/* ---------- item (modelo / curso) ---------- */
-.item{border-top:1px solid var(--rule); padding:30px 0;}
-.item:last-of-type{border-bottom:1px solid var(--rule);}
-.item__top{display:flex; gap:16px; align-items:baseline; flex-wrap:wrap;}
-.item__n{font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:600;
-  color:var(--accent); letter-spacing:.04em; flex:0 0 auto; padding-top:2px;}
-.item h3{font-size:21px; margin:0; font-weight:600; letter-spacing:-0.012em; flex:1 1 22ch;}
-.item__kind{font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.09em;
-  text-transform:uppercase; color:var(--ink-3); flex:0 0 auto;}
-.item__body{margin:12px 0 0; color:var(--ink-2); max-width:68ch;}
-.item__body strong{color:var(--ink); font-weight:600;}
+/* ---------- cartão de estudo / curso ---------- */
+.item{position:relative; border:1px solid var(--rule); border-radius:10px;
+  background:var(--surface); padding:26px 28px; margin-bottom:18px;
+  transition:border-color .2s, transform .2s;}
+.item:hover{border-color:#4a3722; transform:translateY(-2px);}
+.item__top{display:flex; gap:14px; align-items:baseline; flex-wrap:wrap;}
+.item__n{position:absolute; top:16px; right:22px; font-family:var(--mono); font-size:24px;
+  font-weight:600; color:var(--ink); opacity:.10; letter-spacing:.02em;}
+.item h3{font-size:22px; margin:0; font-weight:700; flex:1 1 100%; order:2; color:var(--ink);}
+.item__kind{font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--pink); order:1; flex:1 1 100%;}
+.item__body{margin:16px 0 0; color:var(--ink-2); max-width:70ch;}
+.item__body strong{color:var(--amber); font-weight:600;}
 
-.metrics{display:flex; flex-wrap:wrap; gap:0; margin:20px 0 0;
-  border:1px solid var(--rule); border-radius:3px; background:var(--surface); overflow:hidden;}
-.metric{flex:1 1 120px; padding:12px 15px; border-right:1px solid var(--rule-soft);}
-.metric:last-child{border-right:none;}
-.metric dt{font-family:"IBM Plex Mono", monospace; font-size:10.5px; letter-spacing:.09em;
-  text-transform:uppercase; color:var(--ink-3); margin:0 0 3px;}
-.metric dd{margin:0; font-family:"IBM Plex Mono", monospace; font-size:17px; font-weight:600;
-  color:var(--ink); font-variant-numeric:tabular-nums; line-height:1.3;}
-.metric dd small{font-size:12px; font-weight:400; color:var(--ink-2); font-family:"IBM Plex Sans", sans-serif;}
+.metrics{display:flex; flex-wrap:wrap; gap:20px 36px; margin:20px 0 0;
+  padding:18px 0; border-top:1px dashed var(--rule); border-bottom:1px dashed var(--rule);}
+.metric{flex:0 1 auto; min-width:96px;}
+.metric dt{font-family:var(--mono); font-size:11px; color:var(--ink-3); margin:5px 0 0;
+  order:2; line-height:1.4;}
+.metric dd{margin:0; font-family:var(--mono); font-size:21px; font-weight:600;
+  color:var(--mint); font-variant-numeric:tabular-nums; line-height:1.2; order:1;}
+.metric{display:flex; flex-direction:column;}
+.metric dd small{font-size:11px; font-weight:400; color:var(--ink-3);
+  font-family:var(--mono); letter-spacing:0;}
 
-.finding{margin:18px 0 0; padding:13px 16px; background:var(--accent-soft);
-  border-left:2px solid var(--accent); color:var(--ink-2); font-size:15.5px; max-width:70ch;}
-.finding b{color:var(--ink); font-weight:600; font-family:"IBM Plex Sans", sans-serif;
-  font-size:12px; letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:3px;}
+.finding{margin:18px 0 0; color:var(--ink-2); font-size:15.5px; max-width:70ch;}
+.finding b{color:var(--pink); font-weight:600; font-family:var(--mono);
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase; display:block;
+  margin-bottom:6px;}
+.finding strong{color:var(--amber); font-weight:600;}
 
-.files{display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 0; align-items:center;}
+.files{display:flex; flex-wrap:wrap; gap:22px; margin:20px 0 0; align-items:center;}
 .btn{display:inline-flex; align-items:center; gap:7px; text-decoration:none;
-  font-family:"IBM Plex Sans", sans-serif; font-size:13.5px; padding:8px 14px;
-  border-radius:3px; border:1px solid var(--rule); background:var(--surface);
-  color:var(--ink); white-space:nowrap; transition:border-color .15s, background .15s;}
-.btn:hover{border-color:var(--accent); background:var(--surface-2);}
-.btn--go{background:var(--accent); border-color:var(--accent); color:#fff; font-weight:500;}
-.btn--go:hover{background:var(--accent); border-color:var(--accent); filter:brightness(1.08);}
-.btn__ext{font-family:"IBM Plex Mono", monospace; font-size:10.5px; color:var(--ink-3);
-  letter-spacing:.05em;}
-.btn--go .btn__ext{color:rgba(255,255,255,.72);}
+  font-family:var(--sans); font-size:14px; font-weight:500; color:var(--ink-2);
+  padding:3px 0; border-bottom:1px solid var(--rule); white-space:nowrap;
+  transition:color .16s, border-color .16s;}
+.btn:hover{color:var(--ink); border-bottom-color:var(--ink);}
+.btn--go{color:var(--amber); border-bottom-color:var(--amber);}
+.btn--go:hover{color:var(--amber); border-bottom-color:var(--amber);
+  filter:brightness(1.15);}
+.btn__ext{font-family:var(--mono); font-size:10.5px; color:var(--ink-3); letter-spacing:.05em;}
 
 /* ---------- nota ---------- */
-.note{margin:0 0 30px; padding:14px 17px; border:1px solid var(--rule); border-radius:3px;
-  background:var(--surface); color:var(--ink-2); font-size:15.5px; max-width:74ch;}
+.note{margin:0 0 26px; padding:15px 18px; border-left:2px solid var(--mint);
+  border-radius:0 4px 4px 0; background:var(--mint-soft); color:var(--ink-2);
+  font-size:15px; max-width:74ch;}
 .note b{color:var(--ink); font-weight:600;}
 
 /* ---------- mentoria ---------- */
 .two{display:grid; grid-template-columns:1fr 1fr; gap:34px; align-items:start;}
 @media (max-width:760px){ .two{grid-template-columns:1fr; gap:26px;} }
-.two h4{font-size:13px; margin:0 0 12px; font-weight:600; letter-spacing:.08em;
-  text-transform:uppercase; color:var(--ink-3);}
-.lst{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px;}
-.lst li{display:flex; gap:11px; color:var(--ink-2); font-size:16px; line-height:1.55;}
-.lst li::before{content:""; flex:0 0 auto; width:6px; height:6px; margin-top:9px; border-radius:50%;
-  background:var(--ok);}
-.lst--no li::before{background:var(--ink-3); border-radius:0; height:2px; margin-top:11px;}
+.two h4{font-family:var(--mono); font-size:11px; margin:0 0 14px; font-weight:500;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--pink);}
+.lst{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;}
+.lst li{display:flex; gap:12px; color:var(--ink-2); font-size:15.5px; line-height:1.6;}
+.lst li::before{content:""; flex:0 0 auto; width:7px; height:7px; margin-top:10px;
+  border-radius:2px; background:var(--mint);}
+.lst--no li::before{background:var(--ink-3); height:2px; margin-top:12px; border-radius:0;}
 
-.form-slot{margin-top:34px; border:1px solid var(--rule); border-radius:4px;
-  background:var(--surface); padding:28px; box-shadow:var(--shadow);}
-.form-slot h3{margin:0 0 8px; font-size:20px; font-weight:600; letter-spacing:-0.01em;}
-.form-slot p{margin:0 0 18px; color:var(--ink-2); max-width:58ch;}
+.form-slot{margin-top:38px; border:1px solid var(--rule); border-radius:10px;
+  background:var(--surface); padding:30px; box-shadow:var(--shadow);}
+.form-slot h3{margin:0 0 8px; font-size:21px; font-weight:700;}
+.form-slot p{margin:0 0 20px; color:var(--ink-2); max-width:58ch;}
+
 /* ---------- questionário ---------- */
-.form{display:flex; flex-direction:column; gap:24px; font-family:"IBM Plex Sans", sans-serif;}
+.form{display:flex; flex-direction:column; gap:24px; font-family:var(--texto);}
 .field{display:flex; flex-direction:column; gap:7px;}
-.field > label, .field > .lbl{font-size:13.5px; font-weight:500; color:var(--ink);
-  line-height:1.45;}
-.field .hint{font-size:12.5px; color:var(--ink-3); font-family:"IBM Plex Sans", sans-serif;}
-.req{color:var(--accent); font-weight:600;}
+.field > label, .field > .lbl{font-size:14px; font-weight:600; color:var(--ink); line-height:1.45;}
+.field .hint{font-size:12.5px; color:var(--ink-3);}
+.req{color:var(--pink); font-weight:600;}
 .row{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
 @media (max-width:620px){ .row{grid-template-columns:1fr;} }
 
 .form input[type="text"], .form input[type="email"], .form input[type="url"], .form textarea{
-  font-family:"IBM Plex Sans", sans-serif; font-size:15px; color:var(--ink);
-  background:var(--ground); border:1px solid var(--rule); border-radius:3px;
-  padding:10px 12px; width:100%; transition:border-color .15s;}
-.form textarea{min-height:104px; resize:vertical; line-height:1.55;}
-.form input:focus, .form textarea:focus{outline:none; border-color:var(--accent);
-  box-shadow:0 0 0 3px var(--accent-soft);}
+  font-family:var(--texto); font-size:15px; color:var(--ink);
+  background:var(--ground-2); border:1px solid var(--rule); border-radius:5px;
+  padding:11px 13px; width:100%; transition:border-color .15s, box-shadow .15s;}
+.form textarea{min-height:104px; resize:vertical; line-height:1.6;}
+.form input:focus, .form textarea:focus{outline:none; border-color:var(--amber);
+  box-shadow:0 0 0 3px var(--amber-soft);}
 .form input::placeholder, .form textarea::placeholder{color:var(--ink-3);}
 
-.opts{display:flex; flex-direction:column; gap:2px; margin-top:2px;}
-.opts--wide{display:grid; grid-template-columns:repeat(auto-fill, minmax(168px, 1fr)); gap:2px;}
+.opts{display:flex; flex-direction:column; gap:3px; margin-top:2px;}
+.opts--wide{display:grid; grid-template-columns:repeat(auto-fill, minmax(168px, 1fr)); gap:3px;}
 .opts--4{grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));}
-.opt{display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:3px;
+.opt{display:flex; align-items:flex-start; gap:10px; padding:9px 11px; border-radius:5px;
   font-size:14.5px; color:var(--ink-2); cursor:pointer; line-height:1.45;
-  transition:background .12s;}
-.opt:hover{background:var(--ground);}
-.opt input{flex:0 0 auto; margin:3px 0 0; accent-color:var(--accent); width:15px; height:15px;}
-.opt:has(input:checked){background:var(--accent-soft); color:var(--ink);}
+  border:1px solid transparent; transition:background .14s, border-color .14s;}
+.opt:hover{background:var(--surface-2);}
+.opt input{flex:0 0 auto; margin:3px 0 0; accent-color:var(--amber); width:15px; height:15px;}
+.opt:has(input:checked){background:var(--amber-soft); border-color:#54401c; color:var(--ink);}
 
-.consent{display:flex; align-items:flex-start; gap:11px; padding:14px 16px;
-  border:1px solid var(--rule); border-radius:3px; background:var(--ground);
-  font-size:13.5px; color:var(--ink-2); line-height:1.55; cursor:pointer;}
-.consent input{flex:0 0 auto; margin:2px 0 0; accent-color:var(--accent); width:15px; height:15px;}
+.consent{display:flex; align-items:flex-start; gap:11px; padding:15px 17px;
+  border:1px solid var(--rule); border-radius:6px; background:var(--ground-2);
+  font-size:13.5px; color:var(--ink-2); line-height:1.6; cursor:pointer;}
+.consent input{flex:0 0 auto; margin:2px 0 0; accent-color:var(--amber); width:15px; height:15px;}
 
-.submit{align-self:flex-start; font-family:"IBM Plex Sans", sans-serif; font-size:15px;
-  font-weight:500; padding:12px 26px; border-radius:3px; border:1px solid var(--accent);
-  background:var(--accent); color:#fff; cursor:pointer; transition:filter .15s;}
-.submit:hover{filter:brightness(1.08);}
+.submit{align-self:flex-start; font-family:var(--sans); font-size:15px; font-weight:600;
+  padding:13px 28px; border-radius:6px; border:1px solid var(--amber);
+  background:var(--amber); color:#17110d; cursor:pointer; transition:filter .15s;}
+.submit:hover{filter:brightness(1.1);}
 .hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
 
-footer{border-top:1px solid var(--rule); background:var(--surface);}
-.foot{padding:30px 0 40px; display:flex; flex-wrap:wrap; gap:18px 26px; align-items:baseline;
+footer{border-top:1px solid var(--rule); background:var(--ground-2);}
+.foot{padding:32px 0 44px; display:flex; flex-wrap:wrap; gap:18px 26px; align-items:baseline;
   justify-content:space-between;}
 .foot p{margin:0; color:var(--ink-3); font-size:14px;}
-.foot nav{display:flex; gap:18px; flex-wrap:wrap;}
-.foot nav a{font-family:"IBM Plex Sans", sans-serif; font-size:14px; text-decoration:none;
+.foot nav{display:flex; gap:20px; flex-wrap:wrap;}
+.foot nav a{font-family:var(--sans); font-size:14px; text-decoration:none;
   color:var(--ink-2); border-bottom:1px solid var(--rule);}
-.foot nav a:hover{color:var(--accent); border-bottom-color:var(--accent);}
+.foot nav a:hover{color:var(--amber); border-bottom-color:var(--amber);}
 
-@media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+/* ---------- movimento: três momentos, e só ---------- */
+@keyframes acende{ to{opacity:1;} }
+@keyframes sobe{ from{transform:scaleY(0);} to{transform:scaleY(1);} }
+
+.marca .cel{animation:acende .5s ease forwards;}
+.marca .barra{animation:acende .35s ease forwards, sobe .55s cubic-bezier(.2,.8,.3,1) forwards;
+  transform-origin:bottom;}
+.marca .doispontos{animation:acende .4s ease forwards; animation-delay:1.15s;}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important; animation:none !important;}
+  .marca .cel, .marca .barra, .marca .doispontos{opacity:1; transform:none;}
+  .tab[aria-selected="true"]::after{transform:scaleX(1);}
+}
+
+/* ---------- selo e retrato ---------- */
+.selo{display:block; filter:drop-shadow(0 8px 30px rgba(245,179,53,.16));
+  animation:carimbo .7s cubic-bezier(.2,.9,.3,1) both;}
+@keyframes carimbo{
+  from{opacity:0; transform:scale(.86) rotate(-9deg);}
+  to{opacity:1; transform:scale(1) rotate(0);}
+}
+.tabs__in{align-items:center;}
+.tabs__lista{display:flex; gap:4px; align-items:stretch; overflow-x:auto; scrollbar-width:thin;}
+.tabs__selo{flex:0 0 auto; display:flex; align-items:center; padding-right:14px;
+  margin-right:10px; border-right:1px solid var(--rule); opacity:.85;
+  transition:opacity .18s;}
+.tabs__selo:hover{opacity:1;}
+@media (max-width:620px){ .tabs__selo{display:none;} }
+
+.sobre__grid{display:grid; grid-template-columns:230px 1fr; gap:34px; align-items:start;}
+@media (max-width:760px){ .sobre__grid{grid-template-columns:1fr; gap:22px; justify-items:center;} }
+.retrato{margin:0; display:flex; flex-direction:column; align-items:center; gap:10px;
+  position:sticky; top:86px;}
+@media (max-width:760px){ .retrato{position:static;} }
+.retrato img{border-radius:50%; border:2px solid var(--amber);
+  box-shadow:0 10px 34px -14px rgba(0,0,0,.8); display:block;}
+.retrato figcaption{font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-3);}
+.sobre__texto .item__body:first-child{margin-top:0;}
+
+/* ---------- mini-ilustrações animadas ---------- */
+.mini{margin:26px 0; border:1px solid var(--rule); border-radius:6px;
+  background:var(--surface); padding:13px 16px 14px;}
+.mini__topo{display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+  margin-bottom:10px;}
+.mini__t{font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3);}
+.mini__re{flex:0 0 auto; font-family:"IBM Plex Sans", sans-serif; font-size:12px;
+  color:var(--ink-3); background:none; border:1px solid var(--rule); border-radius:3px;
+  padding:3px 10px; cursor:pointer; transition:color .15s, border-color .15s;}
+.mini__re:hover{color:var(--accent); border-color:var(--accent);}
+.mini svg{display:block; width:100%; height:auto;}
+.mini text{font-family:"IBM Plex Mono", monospace;}
+.mini__leg{margin:9px 0 0; font-size:13.5px; color:var(--ink-3); line-height:1.5;}
+
+/* estados iniciais: quem entra começa invisível, quem sai começa inteiro */
+.mini .entra{opacity:0;}
+.mini .sai{opacity:1;}
+.mini .sobe{opacity:0;}
+.mini .anda{opacity:0;}
+
+@keyframes mini-entra{to{opacity:1;}}
+@keyframes mini-sai{to{opacity:.16;}}
+@keyframes mini-sobe{from{opacity:0; transform:translateY(9px);} to{opacity:1; transform:translateY(0);}}
+@keyframes mini-pulo{0%{opacity:0; transform:translateY(-7px);} 60%{opacity:1;} 100%{opacity:1; transform:translateY(0);}}
+@keyframes mini-realce{0%{opacity:0;} 25%{opacity:1;} 100%{opacity:1;}}
+
+.mini.tocando .entra{animation:mini-entra .45s ease forwards;}
+.mini.tocando .sai{animation:mini-sai .5s ease forwards;}
+.mini.tocando .sobe{animation:mini-sobe .5s cubic-bezier(.2,.8,.3,1) forwards;}
+.mini.tocando .anda{animation:mini-pulo .55s cubic-bezier(.2,.8,.3,1) forwards;}
+.mini.tocando .realce{animation:mini-realce .5s ease forwards;}
+.mini .realce{opacity:0;}
+
+@media (prefers-reduced-motion: reduce){
+  .mini .entra, .mini .sobe, .mini .anda, .mini .realce{opacity:1 !important; transform:none !important;
+    animation:none !important;}
+  .mini .sai{opacity:.16 !important; animation:none !important;}
+}
+
+@keyframes mini-varre{0%{opacity:0;} 40%{opacity:.22;} 100%{opacity:0;}}
+.mini.tocando .varre{animation:mini-varre .5s ease forwards;}
+@keyframes mini-risca{to{stroke-dashoffset:0;}}
+.mini .risca{opacity:1;}
+.mini.tocando .risca{animation:mini-risca .9s cubic-bezier(.3,.7,.3,1) forwards;}
+@media (prefers-reduced-motion: reduce){
+  .mini .varre{opacity:0 !important; animation:none !important;}
+  .mini .risca{stroke-dashoffset:0 !important; animation:none !important;}
+}
+
+/* ---------- trajetória ---------- */
+.abertura{max-width:62ch; margin:0 0 44px;}
+.abertura p{margin:0 0 16px; font-size:18.5px; line-height:1.62; color:var(--ink-2);}
+.abertura p:first-child{font-size:23px; line-height:1.45; color:var(--ink);
+  font-family:var(--sans); font-weight:500; letter-spacing:-0.015em;}
+.abertura strong{color:var(--amber); font-weight:600;}
+
+.capa{display:grid; grid-template-columns:200px 1fr; gap:36px; align-items:center;
+  margin-bottom:46px;}
+@media (max-width:760px){ .capa{grid-template-columns:1fr; gap:24px; justify-items:center;
+  text-align:center;} .abertura{margin-bottom:32px;} }
+.capa figure{margin:0; display:flex; flex-direction:column; align-items:center; gap:10px;}
+.capa img{border-radius:50%; border:2px solid var(--amber); display:block;
+  box-shadow:0 12px 40px -16px rgba(0,0,0,.85);}
+.capa figcaption{font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink-3);}
+
+.trilha{position:relative; margin:0; padding:0 0 0 34px; list-style:none;}
+.trilha::before{content:""; position:absolute; left:7px; top:6px; bottom:80px; width:2px;
+  background:linear-gradient(var(--rule), var(--rule) 70%, transparent);}
+@media (max-width:620px){ .trilha{padding-left:26px;} .trilha::before{left:5px;} }
+
+.etapa{position:relative; padding:0 0 46px;}
+.etapa::before{content:""; position:absolute; left:-34px; top:7px; width:16px; height:16px;
+  border-radius:50%; background:var(--ground); border:2px solid var(--rule);
+  transition:border-color .45s ease, background .45s ease, box-shadow .45s ease;}
+@media (max-width:620px){ .etapa::before{left:-26px; width:12px; height:12px; top:8px;} }
+.etapa.chegou::before{border-color:var(--amber); background:var(--amber-soft);
+  box-shadow:0 0 0 5px rgba(245,179,53,.10);}
+.etapa__q{font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--pink); margin:0 0 6px;}
+.etapa h3{margin:0 0 12px; font-size:20px; font-weight:700; color:var(--ink);}
+.etapa p{margin:0 0 14px; color:var(--ink-2); max-width:66ch;}
+.etapa p strong{color:var(--amber); font-weight:600;}
+.etapa .mini{margin:18px 0 0; max-width:600px;}
+
+.fecho{margin:12px 0 0; padding:30px 32px; border-radius:12px;
+  background:linear-gradient(150deg, var(--surface) 0%, #241a12 100%);
+  border:1px solid var(--rule);}
+.fecho h3{margin:0 0 14px; font-size:23px; font-weight:700; color:var(--amber);
+  letter-spacing:-0.02em;}
+.fecho p{margin:0 0 14px; color:var(--ink-2); max-width:64ch; font-size:16.5px;}
+.fecho p:last-of-type{margin-bottom:22px;}
+.fecho strong{color:var(--ink); font-weight:600;}
+
 </style>
 
 <header class="hero">
   <div class="wrap hero__in">
-    <p class="eyebrow">Ciência de dados · crédito, cobrança, compliance e pricing</p>
-    <h1>Edin<span class="thin">Modelos de risco, cursos e mentoria em dados</span></h1>
-    <p class="hero__deck">Cientista de dados sênior no setor bancário. Aqui ficam os estudos de
-      modelagem que desenvolvi de ponta a ponta, os materiais que uso para formar analistas —
-      todos com download livre — e o caminho para a mentoria.</p>
+    <img class="selo" src="img/selo.png" width="150" height="150"
+      alt="Café com Dados · Prof. Milk">
+    <h1>Café com dados<span class="thin">Modelos de risco, cursos e mentoria — de ponta a ponta, com o método aberto</span></h1>
+    <p class="hero__deck">Cientista de dados sênior em crédito, cobrança, compliance e pricing.
+      Cada estudo aqui vem com o relatório, o código e a planilha. Cada curso vem com a base
+      para praticar.</p>
+    <p class="eyebrow">Excel · SQL · Python · Power BI</p>
     <div class="chips">
-      <span class="chip"><b>2</b> estudos de modelagem</span>
-      <span class="chip"><b>4</b> materiais de curso</span>
-      <span class="chip"><b>10.000</b> linhas na base de prática</span>
-      <span class="chip">Excel · SQL · Python · Power BI</span>
+      <span class="chip"><b data-conta="5">5</b> estudos de modelagem</span>
+      <span class="chip"><b data-conta="4">4</b> materiais de curso</span>
+      <span class="chip"><b data-conta="10000">10.000</b> linhas na base de prática</span>
     </div>
   </div>
 </header>
 
 <div class="tabs">
-  <div class="wrap tabs__in" role="tablist" aria-label="Seções do portfólio">
-    <button class="tab" role="tab" id="t-modelos" aria-controls="p-modelos" aria-selected="true">
-      <span class="tab__k">01</span> Modelos desenvolvidos</button>
+  <div class="wrap tabs__in">
+    <a class="tabs__selo" href="#sobre" data-ir="sobre" aria-label="Início">
+      <img src="img/selo.png" width="30" height="30" alt=""></a>
+    <div class="tabs__lista" role="tablist" aria-label="Seções do portfólio">
+    <button class="tab" role="tab" id="t-sobre" aria-controls="p-sobre" aria-selected="true">
+      <span class="tab__k">01</span> Sobre mim</button>
+    <button class="tab" role="tab" id="t-modelos" aria-controls="p-modelos" aria-selected="false">
+      <span class="tab__k">02</span> Modelos desenvolvidos</button>
     <button class="tab" role="tab" id="t-cursos" aria-controls="p-cursos" aria-selected="false">
-      <span class="tab__k">02</span> Cursos</button>
+      <span class="tab__k">03</span> Cursos</button>
     <button class="tab" role="tab" id="t-mentoria" aria-controls="p-mentoria" aria-selected="false">
-      <span class="tab__k">03</span> Mentoria</button>
+      <span class="tab__k">04</span> Mentoria</button>
+    </div>
   </div>
 </div>
 
 <main class="wrap">
 
+
+  <!-- ============ SOBRE ============ -->
+  <section class="panel" id="p-sobre" role="tabpanel" aria-labelledby="t-sobre">
+    <div class="capa">
+      <figure>
+        <img src="img/avatar.png" width="200" height="200"
+             alt="Ilustração de Edin com uma xícara de café">
+        <figcaption>Prof. Milk</figcaption>
+      </figure>
+      <div class="abertura">
+        <p>Vim de família humilde, entrei na USP aos dezessete e hoje construo modelos de risco
+          em banco.</p>
+        <p>Conto isso porque, se você está aí achando que ciência de dados não é para você, a
+          minha história é o argumento mais honesto que eu tenho contra essa ideia.</p>
+        <p><strong>Não precisa saber tudo para começar. Precisa querer.</strong> O resto se
+          aprende no caminho, fazendo do jeito que dá.</p>
+      </div>
+    </div>
+
+    <ol class="trilha">
+      <li class="etapa">
+        <p class="etapa__q">01</p>
+        <h3>A USP aos dezessete</h3>
+        <p>Entrei em ciências contábeis porque queria entender por que as coisas acontecem. Sempre fui apaixonado por ciência, pela ideia de que existe uma <strong>explicação lógica</strong> atrás de cada coisa no mundo.</p>
+        <p>A contabilidade me deu rigor, e me deu o vocabulário do dinheiro — que é o vocabulário de todo banco. Mas ela responde como registrar o que já aconteceu. Eu queria a outra pergunta, a que vem depois: e agora, o que vai acontecer?</p>
+        <p>Nunca fui bom em seguir regra fixa. Gosto de fazer do meu jeito.</p>
+        <figure class="mini"><div class="mini__topo"><span class="mini__t">O que a contabilidade responde, e o que não</span><button class="mini__re" type="button">repetir</button></div><svg viewBox="0 0 560 172" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="O que a contabilidade responde, e o que não"><text x="0" y="14" font-size="11" fill="var(--ink-3)">o razonete fecha</text><line x1="60" y1="26" x2="230" y2="26" stroke="var(--rule)" stroke-width="1.5"/><line x1="145" y1="26" x2="145" y2="124" stroke="var(--rule)" stroke-width="1.5"/><text x="72" y="44" font-size="10.5" fill="var(--ink-3)">debito</text><text x="160" y="44" font-size="10.5" fill="var(--ink-3)">credito</text><text x="72" y="62" font-size="11" fill="var(--ink-2)" class="entra" style="animation-delay:0.30s">1.200</text><text x="160" y="62" font-size="11" fill="var(--ink-2)" class="entra" style="animation-delay:0.38s">800</text><text x="72" y="82" font-size="11" fill="var(--ink-2)" class="entra" style="animation-delay:0.46s">400</text><text x="160" y="82" font-size="11" fill="var(--ink-2)" class="entra" style="animation-delay:0.54s">900</text><text x="72" y="102" font-size="11" fill="var(--ink-2)" class="entra" style="animation-delay:0.62s">300</text><text x="160" y="102" font-size="11" fill="var(--ink-2)" class="entra" style="animation-delay:0.70s">200</text><line x1="60" y1="112" x2="230" y2="112" stroke="var(--rule)"/><text x="72" y="128" font-size="11.5" fill="var(--mint)" class="entra" style="animation-delay:.95s">1.900</text><text x="160" y="128" font-size="11.5" fill="var(--mint)" class="entra" style="animation-delay:.95s">1.900</text><text x="60" y="150" font-size="10.5" fill="var(--mint)" class="entra" style="animation-delay:1.15s">bate certinho</text><text x="300" y="14" font-size="11" fill="var(--ink-3)" class="entra" style="animation-delay:1.5s">e ainda assim:</text><text x="300" y="44" font-size="13" fill="var(--amber)" class="sobe" style="animation-delay:1.70s">por que caiu neste mes?</text><text x="300" y="72" font-size="13" fill="var(--amber)" class="sobe" style="animation-delay:2.00s">vai cair de novo no proximo?</text><text x="300" y="100" font-size="13" fill="var(--amber)" class="sobe" style="animation-delay:2.30s">da para prever isso?</text><text x="300" y="142" font-size="10.5" fill="var(--ink-3)" class="entra" style="animation-delay:2.7s">a norma diz como registrar,</text><text x="300" y="158" font-size="10.5" fill="var(--ink-3)" class="entra" style="animation-delay:2.78s">nao o que vai acontecer</text></svg></figure>
+      </li>
+      <li class="etapa">
+        <p class="etapa__q">02</p>
+        <h3>Excel, VBA e a controladoria</h3>
+        <p>Ainda na faculdade eu trabalhava na controladoria, e foi ali que comecei a mexer com dados de verdade. Primeiro Excel, depois <strong>VBA</strong>, porque tinha uma rotina que eu refazia toda semana e que não precisava ser refeita.</p>
+        <p>Automatizar aquilo foi a primeira vez que eu senti a diferença entre operar uma ferramenta e construir uma. Não teve volta.</p>
+        <figure class="mini"><div class="mini__topo"><span class="mini__t">A primeira automação</span><button class="mini__re" type="button">repetir</button></div><svg viewBox="0 0 560 202" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A primeira automação"><text x="0" y="14" font-size="11" fill="var(--ink-3)">na mao, toda segunda</text><rect x="0" y="26" width="26" height="26" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="9" y="44" font-size="11" fill="var(--ink-3)">1</text><rect x="34" y="26" width="26" height="26" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="43" y="44" font-size="11" fill="var(--ink-3)">2</text><rect x="68" y="26" width="26" height="26" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="77" y="44" font-size="11" fill="var(--ink-3)">3</text><rect x="102" y="26" width="26" height="26" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="111" y="44" font-size="11" fill="var(--ink-3)">4</text><rect x="136" y="26" width="26" height="26" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="145" y="44" font-size="11" fill="var(--ink-3)">5</text><rect x="170" y="26" width="26" height="26" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="179" y="44" font-size="11" fill="var(--ink-3)">6</text><rect x="204" y="26" width="26" height="26" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="213" y="44" font-size="11" fill="var(--ink-3)">7</text><text x="0" y="72" font-size="10.5" fill="var(--ink-3)">sete passos, quarenta minutos, toda semana</text><text x="0" y="112" font-size="11" fill="var(--ink-3)" class="entra" style="animation-delay:1.0s">depois do VBA</text><rect x="0" y="124" width="26" height="26" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" class="anda" style="animation-delay:1.20s"/><rect x="34" y="124" width="26" height="26" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" class="anda" style="animation-delay:1.29s"/><rect x="68" y="124" width="26" height="26" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" class="anda" style="animation-delay:1.38s"/><rect x="102" y="124" width="26" height="26" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" class="anda" style="animation-delay:1.47s"/><rect x="136" y="124" width="26" height="26" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" class="anda" style="animation-delay:1.56s"/><rect x="170" y="124" width="26" height="26" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" class="anda" style="animation-delay:1.65s"/><rect x="204" y="124" width="26" height="26" rx="3" fill="var(--amber-soft)" stroke="var(--amber)" class="anda" style="animation-delay:1.74s"/><rect x="0" y="124" width="228" height="26" rx="3" fill="var(--amber)" opacity="0" class="varre" style="animation-delay:1.9s"/><text x="248" y="142" font-size="12" fill="var(--amber)" class="sobe" style="animation-delay:2.2s">um clique</text><text x="0" y="172" font-size="10.5" fill="var(--ink-3)" class="entra" style="animation-delay:2.5s">foi aqui que eu descobri que gostava mais de</text><text x="0" y="188" font-size="10.5" fill="var(--ink-3)" class="entra" style="animation-delay:2.58s">construir a ferramenta do que de operar a planilha</text></svg></figure>
+      </li>
+      <li class="etapa">
+        <p class="etapa__q">03</p>
+        <h3>O banco: atacado</h3>
+        <p>Saí da controladoria e fui direto para um banco, no atacado. Aprendi SQL, aprendi SAS, fui fundo em Excel e passei a entender os produtos por dentro.</p>
+        <p>Foram dois anos automatizando rotina e descobrindo que dado sozinho não decide nada — quem decide é quem entende o negócio atrás dele.</p>
+      </li>
+      <li class="etapa">
+        <p class="etapa__q">04</p>
+        <h3>O varejo: financiamento de veículo</h3>
+        <p>Carro, moto, caminhão. Trabalhei com as áreas de política, sempre olhando para risco e para performance, ainda como analista de dados.</p>
+        <p>Depois vieram alguns anos de análise exploratória de oportunidade de mercado. Eu era bom nisso, e era honesto comigo: eu <strong>descrevia</strong> muito bem o que tinha acontecido, e não sabia prever o que ia acontecer.</p>
+      </li>
+      <li class="etapa">
+        <p class="etapa__q">05</p>
+        <h3>O MBA, e a modelagem entrando pela porta dos fundos</h3>
+        <p>O bichinho do dado tinha mordido. Fui fazer MBA na USP e comecei a aprender técnica de modelagem de verdade.</p>
+        <p>E aí eu fazia o que dava: tentava encaixar uma regressão aqui, uma árvore de decisão ali, no meio do trabalho, sem que aquilo fosse oficialmente o meu trabalho. Não tinha muito espaço. Mas eu ia fazendo.</p>
+        <figure class="mini"><div class="mini__topo"><span class="mini__t">Do gráfico para o modelo</span><button class="mini__re" type="button">repetir</button></div><svg viewBox="0 0 560 202" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Do gráfico para o modelo"><text x="0" y="14" font-size="11" fill="var(--ink-3)">o que eu ja fazia: olhar</text><circle cx="40" cy="156" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.20s"/><circle cx="57" cy="157" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.22s"/><circle cx="74" cy="134" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.24s"/><circle cx="91" cy="150" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.27s"/><circle cx="108" cy="128" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.29s"/><circle cx="125" cy="129" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.31s"/><circle cx="142" cy="135" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.33s"/><circle cx="159" cy="113" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.35s"/><circle cx="176" cy="125" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.38s"/><circle cx="193" cy="106" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.40s"/><circle cx="210" cy="113" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.42s"/><circle cx="227" cy="108" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.44s"/><circle cx="244" cy="90" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.46s"/><circle cx="261" cy="71" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.49s"/><circle cx="278" cy="91" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.51s"/><circle cx="295" cy="82" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.53s"/><circle cx="312" cy="62" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.55s"/><circle cx="329" cy="45" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.57s"/><circle cx="346" cy="54" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.60s"/><circle cx="363" cy="55" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.62s"/><circle cx="380" cy="29" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.64s"/><circle cx="397" cy="57" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.66s"/><circle cx="414" cy="23" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.68s"/><circle cx="431" cy="38" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.71s"/><circle cx="448" cy="38" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.73s"/><circle cx="465" cy="34" r="3.4" fill="var(--ink-3)" class="entra" style="animation-delay:0.75s"/><path d="M40 148 L465 20" stroke="var(--amber)" stroke-width="2" fill="none" stroke-dasharray="460" stroke-dashoffset="460" class="risca" style="animation-delay:1.1s"/><text x="300" y="140" font-size="12" fill="var(--amber)" class="sobe" style="animation-delay:2.0s">o que o MBA acrescentou: a regra</text><text x="0" y="172" font-size="10.5" fill="var(--ink-3)" class="entra" style="animation-delay:2.3s">a mesma nuvem de sempre — mas agora com um numero</text><text x="0" y="188" font-size="10.5" fill="var(--ink-3)" class="entra" style="animation-delay:2.38s">atras dela, e um jeito de saber quando ela erra</text></svg></figure>
+      </li>
+      <li class="etapa">
+        <p class="etapa__q">06</p>
+        <h3>Cientista de dados, oficialmente</h3>
+        <p>Troquei de emprego para assumir o cargo. Caí na <strong>visão cliente</strong>, que é olhar a pessoa inteira em vez de olhar um produto de cada vez, e foi ali que eu me formei de fato.</p>
+        <p>Nos últimos três anos saíram estimação de renda, grau de severidade de restritivos, propensão a apostar, saúde financeira, detecção de venda casada. Hoje estou em precificação.</p>
+        <p>Os estudos que estão aqui no site nasceram desse caminho — reconstruídos sobre base simulada, para poder mostrar o método sem mostrar dado de ninguém.</p>
+        <figure class="mini"><div class="mini__topo"><span class="mini__t">Visão produto, visão cliente</span><button class="mini__re" type="button">repetir</button></div><svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visão produto, visão cliente"><text x="0" y="14" font-size="11" fill="var(--ink-3)">visao produto</text><rect x="0" y="30" width="128" height="20" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="10" y="44" font-size="10.5" fill="var(--ink-3)">cartao</text><text x="96" y="44" font-size="10.5" fill="var(--ink-3)">score</text><rect x="0" y="56" width="128" height="20" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="10" y="70" font-size="10.5" fill="var(--ink-3)">veiculo</text><text x="96" y="70" font-size="10.5" fill="var(--ink-3)">score</text><rect x="0" y="82" width="128" height="20" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="10" y="96" font-size="10.5" fill="var(--ink-3)">conta</text><text x="96" y="96" font-size="10.5" fill="var(--ink-3)">score</text><rect x="0" y="108" width="128" height="20" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="10" y="122" font-size="10.5" fill="var(--ink-3)">credito</text><text x="96" y="122" font-size="10.5" fill="var(--ink-3)">score</text><rect x="0" y="134" width="128" height="20" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/><text x="10" y="148" font-size="10.5" fill="var(--ink-3)">seguro</text><text x="96" y="148" font-size="10.5" fill="var(--ink-3)">score</text><text x="0" y="186" font-size="10.5" fill="var(--ink-3)">cinco notas para a mesma pessoa</text><path d="M132 40 C 190 40, 200 106, 258 106" stroke="var(--amber)" stroke-width="1.5" fill="none" class="realce" style="animation-delay:0.70s"/><path d="M132 66 C 190 66, 200 106, 258 106" stroke="var(--amber)" stroke-width="1.5" fill="none" class="realce" style="animation-delay:0.86s"/><path d="M132 92 C 190 92, 200 106, 258 106" stroke="var(--amber)" stroke-width="1.5" fill="none" class="realce" style="animation-delay:1.02s"/><path d="M132 118 C 190 118, 200 106, 258 106" stroke="var(--amber)" stroke-width="1.5" fill="none" class="realce" style="animation-delay:1.18s"/><path d="M132 144 C 190 144, 200 106, 258 106" stroke="var(--amber)" stroke-width="1.5" fill="none" class="realce" style="animation-delay:1.34s"/><circle cx="300" cy="106" r="42" fill="var(--amber-soft)" stroke="var(--amber)" class="anda" style="animation-delay:1.6s"/><text x="300" y="100" font-size="11" fill="var(--amber)" text-anchor="middle" class="anda" style="animation-delay:1.75s">uma</text><text x="300" y="116" font-size="11" fill="var(--amber)" text-anchor="middle" class="anda" style="animation-delay:1.75s">pessoa</text><text x="352" y="96" font-size="12" fill="var(--ink)" class="sobe" style="animation-delay:2.1s">a pergunta muda:</text><text x="352" y="118" font-size="11.5" fill="var(--ink-2)" class="sobe" style="animation-delay:2.25s">nao e quanto o produto</text><text x="352" y="136" font-size="11.5" fill="var(--ink-2)" class="sobe" style="animation-delay:2.35s">aguenta, e quanto ela aguenta</text></svg></figure>
+      </li>
+      <li class="etapa">
+        <p class="etapa__q">07</p>
+        <h3>A descoberta que virou mentoria</h3>
+        <p>Em algum ponto, orientando estagiário e analista júnior, eu percebi uma coisa que mudou tudo: <strong>eu não preciso saber tudo para ajudar alguém.</strong> Não preciso ser cientista-chefe, nem matemático, nem professor de estatística.</p>
+        <p>E entendi outra: ser cientista de dados é menos sobre o cargo e mais sobre comportamento. É ser investigativo, ser curioso, querer criar em vez de repetir, e fazer questão de entender a matemática que leva do ponto A ao ponto B.</p>
+        <p>Daí veio a mentoria — gratuita, sem cobrar nada de ninguém. Conhecimento foi o que mudou a minha vida. Venho de família muito humilde, meus pais não sabem ler, e mesmo assim eu cheguei aqui. Se é isso que faz a diferença, então faz sentido passar adiante.</p>
+        <figure class="mini"><div class="mini__topo"><span class="mini__t">Por que mentoria</span><button class="mini__re" type="button">repetir</button></div><svg viewBox="0 0 560 122" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Por que mentoria"><circle cx="40" cy="60" r="15" fill="var(--amber)" class="anda" style="animation-delay:.2s"/><text x="40" y="96" font-size="10.5" fill="var(--ink-3)" text-anchor="middle" class="entra" style="animation-delay:.35s">eu</text><path d="M58 60 C 100 60, 110 30, 132 30" stroke="var(--rule)" stroke-width="1.5" fill="none" class="realce" style="animation-delay:0.60s"/><circle cx="150" cy="30" r="11" fill="var(--mint)" class="anda" style="animation-delay:0.75s"/><path d="M58 60 C 100 60, 110 60, 132 60" stroke="var(--rule)" stroke-width="1.5" fill="none" class="realce" style="animation-delay:0.74s"/><circle cx="150" cy="60" r="11" fill="var(--mint)" class="anda" style="animation-delay:0.89s"/><path d="M58 60 C 100 60, 110 90, 132 90" stroke="var(--rule)" stroke-width="1.5" fill="none" class="realce" style="animation-delay:0.88s"/><circle cx="150" cy="90" r="11" fill="var(--mint)" class="anda" style="animation-delay:1.03s"/><path d="M163 30 C 210 30, 216 16, 258 16" stroke="var(--rule-soft)" stroke-width="1.2" fill="none" class="realce" style="animation-delay:1.35s"/><circle cx="272" cy="16" r="8" fill="var(--pink)" class="anda" style="animation-delay:1.50s"/><path d="M163 60 C 210 60, 216 44, 258 44" stroke="var(--rule-soft)" stroke-width="1.2" fill="none" class="realce" style="animation-delay:1.45s"/><circle cx="272" cy="44" r="8" fill="var(--pink)" class="anda" style="animation-delay:1.60s"/><path d="M163 90 C 210 90, 216 74, 258 74" stroke="var(--rule-soft)" stroke-width="1.2" fill="none" class="realce" style="animation-delay:1.55s"/><circle cx="272" cy="74" r="8" fill="var(--pink)" class="anda" style="animation-delay:1.70s"/><path d="M163 90 C 210 90, 216 104, 258 104" stroke="var(--rule-soft)" stroke-width="1.2" fill="none" class="realce" style="animation-delay:1.65s"/><circle cx="272" cy="104" r="8" fill="var(--pink)" class="anda" style="animation-delay:1.80s"/><text x="310" y="52" font-size="12.5" fill="var(--ink)" class="sobe" style="animation-delay:2.0s">conhecimento nao divide.</text><text x="310" y="74" font-size="12.5" fill="var(--amber)" class="sobe" style="animation-delay:2.15s">ele multiplica.</text></svg></figure>
+      </li>
+    </ol>
+
+    <div class="fecho">
+      <h3>Se você chegou até aqui</h3>
+      <p>Talvez você esteja numa área que não é dados e ache que já passou da hora. Talvez
+        esteja começando e ache que nunca vai dar conta de tudo que falta. Eu já estive nos
+        dois lugares.</p>
+      <p>O que eu descobri é que ninguém dá conta de tudo — nem quem está há vinte anos nisso.
+        O que separa quem fica de quem chega é ter começado assim mesmo, com a ferramenta que
+        tinha na mão e a dúvida que tinha na cabeça.</p>
+      <p>Os <strong>cursos aqui do site são livres</strong>, sem cadastro e sem cobrança. Os
+        <strong>estudos vêm com o método aberto</strong>, código e planilha, para você ver como
+        a coisa é feita por dentro. E a <strong>mentoria é gratuita</strong>.</p>
+      <div class="files">
+        <a class="btn btn--go" href="#cursos" data-ir="cursos">Começar pelos cursos</a>
+        <a class="btn" href="#modelos" data-ir="modelos">Ver os estudos</a>
+        <a class="btn" href="#mentoria" data-ir="mentoria">Falar sobre mentoria</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ MODELOS ============ -->
-  <section class="panel" id="p-modelos" role="tabpanel" aria-labelledby="t-modelos">
+  <section class="panel" id="p-modelos" role="tabpanel" aria-labelledby="t-modelos" hidden>
     <div class="sec-head">
       <p class="eyebrow">Estudos completos</p>
       <h2>Modelos desenvolvidos</h2>
-      <p>Cada estudo traz o relatório com a metodologia aberta, o notebook que reproduz os
-        números e a planilha que aplica o modelo em produção.</p>
+      <p>Cada estudo abre a metodologia no relatório. Quase todos trazem também o notebook que
+        reproduz os números e a planilha que aplica o modelo no dia a dia.</p>
     </div>
 
     <p class="note"><b>Sobre os dados.</b> Nenhum estudo aqui usa base de cliente. Em todos, a base
-      é gerada por simulação e o script que a gera vai junto — as premissas ficam visíveis, e
-      qualquer pessoa consegue rodar do zero. O que está em exposição é o método, não o dado.</p>
+      é gerada por simulação, com as premissas declaradas no próprio estudo e o gerador junto do
+      código, para qualquer pessoa conseguir rodar do zero. O que está em exposição é o método, não o dado.</p>
 
     <article class="item">
       <div class="item__top">
@@ -296,6 +536,94 @@ footer{border-top:1px solid var(--rule); background:var(--surface);}
         <a class="btn btn--go" href="modelos/relatorio_cluster_bets.html">Ler o estudo</a>
         <a class="btn" href="modelos/Cluster_Bets.ipynb" download>Notebook <span class="btn__ext">IPYNB</span></a>
         <a class="btn" href="modelos/Regua_Clusterizacao_Bets.xlsx" download>Régua de classificação <span class="btn__ext">XLSX</span></a>
+      </div>
+    </article>
+
+    <article class="item">
+      <div class="item__top">
+        <span class="item__n">03</span>
+        <h3>Grau de severidade de restritivos</h3>
+        <span class="item__kind">Segmentação ordinal · não supervisionado</span>
+      </div>
+      <p class="item__body">Base de negativados <strong>sem variável resposta</strong>: não há o
+        que prever, há o que ordenar. Duas camadas — uma determinística, que converte a natureza
+        da dívida em índice ordinal ponderado por valor, e uma estatística, K-Means sobre sete
+        eixos contínuos. O risco entra depois, só como <strong>validação externa</strong>: os
+        graus separam inadimplência sem nunca terem visto inadimplência.</p>
+      <dl class="metrics">
+        <div class="metric"><dt>População</dt><dd>254.491 <small>negativados</small></dd></div>
+        <div class="metric"><dt>Restritivos</dt><dd>1,15 <small>milhão</small></dd></div>
+        <div class="metric"><dt>AUC (over90 12M)</dt><dd>0,7463</dd></div>
+        <div class="metric"><dt>GS5 × GS2</dt><dd>6,2× <small>de over90</small></dd></div>
+        <div class="metric"><dt>GS5 concentra</dt><dd>45,2% <small>dos eventos</small></dd></div>
+      </dl>
+      <p class="finding"><b>O que o estudo mostrou</b>
+        Quem regulariza a dívida volta ao comportamento de não-negativado em
+        <strong>12 a 14 meses</strong>, mas o registro fica cinco anos no cadastro. São quase
+        quatro anos tratando como negativado um público que já não se comporta como tal, e que
+        a concorrência que faz essa conta leva embora.</p>
+      <div class="files">
+        <a class="btn btn--go" href="modelos/relatorio_restritivos_gs.html">Ler o estudo</a>
+        <a class="btn" href="modelos/GS_Restritivos.ipynb" download>Notebook <span class="btn__ext">IPYNB</span></a>
+        <a class="btn" href="modelos/Grau_Severidade_Restritivos.xlsx" download>Classificador <span class="btn__ext">XLSX</span></a>
+      </div>
+    </article>
+
+    <article class="item">
+      <div class="item__top">
+        <span class="item__n">04</span>
+        <h3>Previsão de volume e planejamento de produção</h3>
+        <span class="item__kind">Série temporal · backtest de origem móvel</span>
+      </div>
+      <p class="item__body">Fora do banco: marca de roupa com produção terceirizada e dez semanas
+        de lead time, o que fixa o horizonte em <strong>13 semanas</strong> antes de qualquer
+        escolha de modelo. Sete métodos disputam a mesma régua, com Holt-Winters e SARIMA
+        <strong>implementados do zero</strong> e testados contra recuperação de parâmetro. A
+        previsão termina onde a decisão começa: estoque de segurança e capital de giro.</p>
+      <dl class="metrics">
+        <div class="metric"><dt>MASE do campeão</dt><dd>0,788</dd></div>
+        <div class="metric"><dt>vs. naive sazonal</dt><dd>−36,0%</dd></div>
+        <div class="metric"><dt>Backtest</dt><dd>7.020 <small>previsões</small></dd></div>
+        <div class="metric"><dt>Estoque de segurança</dt><dd>−38,3%</dd></div>
+        <div class="metric"><dt>Capital liberado</dt><dd>R$ 987 <small>mil</small></dd></div>
+      </dl>
+      <p class="finding"><b>O que o estudo mostrou</b>
+        O <strong>gradient boosting ficou em último</strong>, atrás de repetir o ano anterior.
+        Com sazonalidade de 52 semanas e cinco anos de histórico, cada semana do ano aparece
+        cinco vezes: não há dado para o algoritmo aprender o padrão, e a flexibilidade vira
+        ruído. Ganhou quem enxerga o calendário, não quem tem mais parâmetro.</p>
+      <div class="files">
+        <a class="btn btn--go" href="modelos/relatorio_previsao_volume.html">Ler o estudo</a>
+        <a class="btn" href="modelos/Previsao_Volume.ipynb" download>Notebook <span class="btn__ext">IPYNB</span></a>
+        <a class="btn" href="modelos/Planejamento_Producao.xlsx" download>Planejamento <span class="btn__ext">XLSX</span></a>
+      </div>
+    </article>
+
+    <article class="item">
+      <div class="item__top">
+        <span class="item__n">05</span>
+        <h3>Estimação de renda em camadas</h3>
+        <span class="item__kind">Torneio de fontes · hierarquia de evidência</span>
+      </div>
+      <p class="item__body">Três bureaus reportam três rendas diferentes para a mesma pessoa, e
+        a resposta de qual usar depende de quem é a pessoa. A primeira camada disputa bureau por
+        bureau dentro de cada célula de região e idade, com <strong>McNemar</strong> antes de
+        trocar o campeão. A segunda pergunta outra coisa: onde existe evidência melhor que uma
+        estimativa, e o que fazer quando a evidência é um piso, não um valor.</p>
+      <dl class="metrics">
+        <div class="metric"><dt>Acerto ±10%</dt><dd>55,2%</dd></div>
+        <div class="metric"><dt>Ganho sobre bureau</dt><dd>+11,4 <small>p.p.</small></dd></div>
+        <div class="metric"><dt>Fontes avaliadas</dt><dd>10</dd></div>
+        <div class="metric"><dt>Cobertura</dt><dd>100%</dd></div>
+        <div class="metric"><dt>Renda verificada</dt><dd>80,1% <small>de acerto</small></dd></div>
+      </dl>
+      <p class="finding"><b>O que o estudo mostrou</b>
+        Todo sinal implícito erra para baixo, e muito — consignado subestima em 49%, boleto em
+        58%. Não é defeito: <strong>um piso que acertasse metade das vezes não seria um
+        piso</strong>. O desvio é regular o bastante para virar fator de recuperação, e só depois
+        disso faz sentido comparar o sinal com o bureau.</p>
+      <div class="files">
+        <a class="btn btn--go" href="modelos/relatorio_renda.html">Ler o estudo</a>
       </div>
     </article>
   </section>
@@ -437,7 +765,7 @@ footer{border-top:1px solid var(--rule); background:var(--surface);}
       <p>Conte em que ponto você está e o que quer destravar. Respondo a todas as inscrições,
         mesmo quando a resposta é que a mentoria não é o caminho certo naquele momento.</p>
       <form class="form" action="https://api.web3forms.com/submit" method="POST">
-      <input type="hidden" name="access_key" value="71f233ec-193c-4ac3-9979-af8bd551c2b4">
+        <input type="hidden" name="access_key" value="71f233ec-193c-4ac3-9979-af8bd551c2b4">
         <input type="hidden" name="subject" value="Nova inscrição — mentoria em dados">
         <input type="hidden" name="from_name" value="Site edin — mentoria">
         <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
@@ -570,7 +898,7 @@ footer{border-top:1px solid var(--rule); background:var(--surface);}
 <script>
 (function () {
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
-  var mapa = { 'modelos': 0, 'cursos': 1, 'mentoria': 2 };
+  var mapa = { 'sobre': 0, 'modelos': 1, 'cursos': 2, 'mentoria': 3 };
 
   function mostrar(i, atualizarHash) {
     tabs.forEach(function (t, k) {
@@ -596,6 +924,59 @@ footer{border-top:1px solid var(--rule); background:var(--surface);}
       mostrar(alvo, true);
     });
   });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-ir]'), function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      mostrar(mapa[a.getAttribute('data-ir')], true);
+    });
+  });
+
+
+  // os três números do topo sobem uma vez, ao carregar
+  var parado = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!parado) {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-conta]'), function (el, k) {
+      var fim = parseInt(el.getAttribute('data-conta'), 10);
+      var fmt = function (n) { return n.toLocaleString('pt-BR'); };
+      var t0 = null, dur = 900, atraso = 1500 + k * 130;
+      el.textContent = fmt(0);
+      setTimeout(function () {
+        requestAnimationFrame(function passo(t) {
+          if (t0 === null) t0 = t;
+          var p = Math.min((t - t0) / dur, 1);
+          el.textContent = fmt(Math.round(fim * (1 - Math.pow(1 - p, 3))));
+          if (p < 1) requestAnimationFrame(passo);
+        });
+      }, atraso);
+    });
+  }
+
+
+  // as ilustrações tocam uma vez, ao chegar na tela; o botão repete
+  (function () {
+    var minis = Array.prototype.slice.call(document.querySelectorAll('.mini'));
+    var etapas = Array.prototype.slice.call(document.querySelectorAll('.etapa'));
+    function toca(m) { m.classList.remove('tocando'); void m.offsetWidth; m.classList.add('tocando'); }
+    minis.forEach(function (m) {
+      var b = m.querySelector('.mini__re');
+      if (b) b.addEventListener('click', function () { toca(m); });
+    });
+    if (parado || !('IntersectionObserver' in window)) {
+      minis.forEach(function (m) { m.classList.add('tocando'); });
+      etapas.forEach(function (e) { e.classList.add('chegou'); });
+      return;
+    }
+    var olho = new IntersectionObserver(function (itens) {
+      itens.forEach(function (i) {
+        if (!i.isIntersecting) return;
+        if (i.target.classList.contains('mini')) toca(i.target);
+        else i.target.classList.add('chegou');
+        olho.unobserve(i.target);
+      });
+    }, { threshold: 0.4 });
+    minis.concat(etapas).forEach(function (x) { olho.observe(x); });
+  })();
 
   var inicial = mapa[(location.hash || '').replace('#', '')];
   if (inicial !== undefined) mostrar(inicial, false);
