@@ -1,10 +1,8 @@
 # Portfólio — modelos, cursos e mentoria
 
 Site estático, cinco abas: **Sobre mim**, **Mapa de carreiras**, **Modelos desenvolvidos**,
-**Cursos** e **Mentoria**. Hospedagem no GitHub Pages, sem custo e sem domínio próprio.
-
-A aba **Mapa de carreiras** é um resumo que leva para a página `carreiras.html` — uma página
-interativa com 29 carreiras em dados, organizadas pelo caminho que o dado percorre.
+**Cursos** e
+**Mentoria**. Hospedagem no GitHub Pages, sem custo e sem domínio próprio.
 
 Esta versão substitui a anterior por completo: sobe tudo por cima, é para isso que o
 pacote vem inteiro.
@@ -129,16 +127,6 @@ https://edivaldousp-mentor.github.io/#cursos
 https://edivaldousp-mentor.github.io/#mentoria
 ```
 
-O mapa de carreiras vai além: **cada carreira tem endereço próprio**, então dá para fazer um
-post por carreira apontando direto para ela.
-
-```
-https://edivaldousp-mentor.github.io/carreiras.html
-https://edivaldousp-mentor.github.io/carreiras.html#c=analista-dados
-https://edivaldousp-mentor.github.io/carreiras.html#c=engdados
-https://edivaldousp-mentor.github.io/carreiras.html#c=cientista-risco
-```
-
 ---
 
 ## Depois, se quiser domínio próprio
@@ -155,3 +143,19 @@ Todas as bases deste repositório são **sintéticas**, geradas por script. Não
 cliente, de instituição ou de terceiros em nenhum arquivo. Antes de publicar depoimento
 de aluno com nome, foto ou empresa, tenha autorização por escrito — é exigência da LGPD
 e o risco é seu, não da plataforma.
+
+---
+
+## Mapa de carreiras
+
+`carreiras.html` é uma página só, sem dependência além das fontes do Google. Cada carreira tem
+endereço próprio, então dá para fazer um post apontando direto para ela:
+
+```
+https://edivaldousp-mentor.github.io/carreiras.html
+https://edivaldousp-mentor.github.io/carreiras.html#c=analista-dados
+https://edivaldousp-mentor.github.io/carreiras.html#c=cientista-risco
+```
+
+As faixas salariais foram consultadas em **outubro de 2026** e envelhecem em cerca de 12 meses.
+Revisar quando sair o guia salarial seguinte da Robert Half.
