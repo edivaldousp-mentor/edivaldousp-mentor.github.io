@@ -1,7 +1,10 @@
 # Portfólio — modelos, cursos e mentoria
 
-Site estático, quatro abas: **Sobre mim**, **Modelos desenvolvidos**, **Cursos** e
-**Mentoria**. Hospedagem no GitHub Pages, sem custo e sem domínio próprio.
+Site estático, cinco abas: **Sobre mim**, **Mapa de carreiras**, **Modelos desenvolvidos**,
+**Cursos** e **Mentoria**. Hospedagem no GitHub Pages, sem custo e sem domínio próprio.
+
+A aba **Mapa de carreiras** é um resumo que leva para a página `carreiras.html` — uma página
+interativa com 29 carreiras em dados, organizadas pelo caminho que o dado percorre.
 
 Esta versão substitui a anterior por completo: sobe tudo por cima, é para isso que o
 pacote vem inteiro.
@@ -76,7 +79,8 @@ são exatamente as que estão no `index.html`.
 ## Estrutura
 
 ```
-index.html                     o site (as quatro abas)
+index.html                     o site (as cinco abas)
+carreiras.html                 mapa de carreiras: 29 carreiras, painel, busca e filtros
 .nojekyll                      não apagar
 cursos/
   Base_Vendas_Exploracao.xlsx  base de prática dos três cursos
@@ -119,9 +123,20 @@ As abas têm endereço próprio, então o post pode mandar a pessoa direto ao po
 
 ```
 https://edivaldousp-mentor.github.io/#sobre
+https://edivaldousp-mentor.github.io/#carreiras
 https://edivaldousp-mentor.github.io/#modelos
 https://edivaldousp-mentor.github.io/#cursos
 https://edivaldousp-mentor.github.io/#mentoria
+```
+
+O mapa de carreiras vai além: **cada carreira tem endereço próprio**, então dá para fazer um
+post por carreira apontando direto para ela.
+
+```
+https://edivaldousp-mentor.github.io/carreiras.html
+https://edivaldousp-mentor.github.io/carreiras.html#c=analista-dados
+https://edivaldousp-mentor.github.io/carreiras.html#c=engdados
+https://edivaldousp-mentor.github.io/carreiras.html#c=cientista-risco
 ```
 
 ---

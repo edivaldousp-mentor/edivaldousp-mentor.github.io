@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de carreiras em dados</title>
+<meta name="description" content="29 carreiras em dados explicadas em português de gente: o que a pessoa faz, um dia comum, as ferramentas, a trilha por nível, a faixa salarial e os mitos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --ground:#f6f7f9; --surface:#ffffff; --surface-2:#eef1f6;
+  --ink:#101620; --ink-2:#47505f; --ink-3:#7a8492;
+  --rule:#dde2e9; --rule-soft:#e8ecf1;
+  --accent:#2a78d6; --accent-soft:#e8f0fb;
+  --ok:#1f7a52; --ok-soft:#e4f3ec;
+  --warn:#8a5a12; --warn-soft:#fbf1e0;
+  --shadow:0 1px 2px rgba(16,22,32,.05), 0 8px 24px -12px rgba(16,22,32,.18);
+  --panel-w:560px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#0e1116; --surface:#161b22; --surface-2:#1c232c;
+    --ink:#e9edf3; --ink-2:#a8b2be; --ink-3:#78828e;
+    --rule:#242c36; --rule-soft:#1e252e;
+    --accent:#3987e5; --accent-soft:#14243a;
+    --ok:#5fbf94; --ok-soft:#122720;
+    --warn:#d9a95c; --warn-soft:#2a2110;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#0e1116; --surface:#161b22; --surface-2:#1c232c;
+  --ink:#e9edf3; --ink-2:#a8b2be; --ink-3:#78828e;
+  --rule:#242c36; --rule-soft:#1e252e;
+  --accent:#3987e5; --accent-soft:#14243a;
+  --ok:#5fbf94; --ok-soft:#122720;
+  --warn:#d9a95c; --warn-soft:#2a2110;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Serif", Georgia, "Times New Roman", serif;
+  font-size:17px; line-height:1.68; -webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4,.ui{font-family:"IBM Plex Sans", system-ui, -apple-system, sans-serif;}
+.mono{font-family:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;}
+a{color:var(--accent);}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+.wrap{max-width:1360px; margin:0 auto; padding:0 28px;}
+.sr{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
+
+/* ---------- topo ---------- */
+.hero{border-bottom:1px solid var(--rule);
+  background:radial-gradient(120% 130% at 88% -10%, var(--accent-soft) 0%, transparent 60%), var(--surface);}
+.hero__in{padding:34px 0 38px; display:flex; flex-direction:column; gap:16px;}
+.back{font-family:"IBM Plex Sans", sans-serif; font-size:13.5px; text-decoration:none;
+  color:var(--ink-2); align-self:flex-start;}
+.back:hover{color:var(--accent);}
+.eyebrow{font-family:"IBM Plex Mono", monospace; font-size:11.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--accent); margin:0; font-weight:500;}
+.hero h1{font-size:clamp(29px, 4.3vw, 44px); line-height:1.08; margin:0; font-weight:600;
+  letter-spacing:-0.02em; text-wrap:balance; max-width:20ch;
+  font-family:"IBM Plex Sans", system-ui, sans-serif;}
+.hero__deck{margin:0; max-width:64ch; color:var(--ink-2); font-size:18px;}
+.hero__deck b{color:var(--ink); font-weight:600;}
+
+/* ---------- barra de busca e filtros ---------- */
+.bar{position:sticky; top:0; z-index:30;
+  background:color-mix(in srgb, var(--ground) 92%, transparent);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--rule);}
+.bar__in{display:flex; gap:12px; align-items:center; flex-wrap:wrap; padding:12px 0;}
+.search{position:relative; flex:1 1 300px; max-width:420px;}
+.search input{width:100%; font-family:"IBM Plex Sans", sans-serif; font-size:14.5px;
+  color:var(--ink); background:var(--surface); border:1px solid var(--rule);
+  border-radius:3px; padding:9px 12px 9px 34px;}
+.search input:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft);}
+.search input::placeholder{color:var(--ink-3);}
+.search__i{position:absolute; left:11px; top:50%; transform:translateY(-50%);
+  color:var(--ink-3); font-size:13px; pointer-events:none;}
+.search__k{position:absolute; right:10px; top:50%; transform:translateY(-50%);
+  font-family:"IBM Plex Mono", monospace; font-size:10.5px; color:var(--ink-3);
+  border:1px solid var(--rule); border-radius:3px; padding:1px 5px; pointer-events:none;}
+.filters{display:flex; gap:7px; flex-wrap:wrap;}
+.fchip{font-family:"IBM Plex Sans", sans-serif; font-size:12.5px; padding:6px 11px;
+  border:1px solid var(--rule); border-radius:999px; background:var(--surface);
+  color:var(--ink-2); cursor:pointer; white-space:nowrap; transition:all .14s;}
+.fchip:hover{border-color:var(--accent); color:var(--ink);}
+.fchip[aria-pressed="true"]{background:var(--accent); border-color:var(--accent);
+  color:#fff; font-weight:500;}
+.count{font-family:"IBM Plex Mono", monospace; font-size:11.5px; color:var(--ink-3);
+  margin-left:auto; font-variant-numeric:tabular-nums; white-space:nowrap;}
+
+/* ---------- o mapa ---------- */
+main{padding:32px 0 90px;}
+.legend{display:flex; gap:18px; flex-wrap:wrap; margin:0 0 22px; color:var(--ink-3);
+  font-family:"IBM Plex Sans", sans-serif; font-size:12.5px;}
+.legend span{display:inline-flex; align-items:center; gap:6px;}
+.dot{width:8px; height:8px; border-radius:50%; background:var(--ok); flex:0 0 auto;}
+.dot--mine{background:var(--accent);}
+.dot--no{background:var(--ink-3);}
+
+.mapa{display:grid; grid-template-columns:repeat(6, 1fr); gap:14px; align-items:end;
+  position:relative; padding-bottom:30px;}
+.mapa::after{content:""; position:absolute; left:0; right:0; bottom:16px; height:2px;
+  background:linear-gradient(90deg, var(--rule) 0%, var(--accent) 50%, var(--rule) 100%);
+  opacity:.55;}
+.col{display:flex; flex-direction:column; gap:7px; min-width:0;}
+.col__h{margin-bottom:3px;}
+.col__n{font-family:"IBM Plex Mono", monospace; font-size:11px; font-weight:600;
+  color:var(--accent); letter-spacing:.06em;}
+.col__t{font-family:"IBM Plex Sans", sans-serif; font-size:13.5px; font-weight:600;
+  color:var(--ink); line-height:1.25; margin:1px 0 2px; letter-spacing:-0.01em;}
+.col__s{font-family:"IBM Plex Sans", sans-serif; font-size:11.5px; color:var(--ink-3);
+  line-height:1.35; display:block;}
+
+.station{width:100%; text-align:left; cursor:pointer; background:var(--surface);
+  border:1px solid var(--rule); border-radius:3px; padding:9px 11px;
+  font-family:"IBM Plex Sans", sans-serif; font-size:13px; line-height:1.3;
+  color:var(--ink); transition:border-color .14s, background .14s, opacity .18s, transform .14s;
+  display:flex; align-items:flex-start; gap:7px;}
+.station:hover{border-color:var(--accent); background:var(--surface-2); transform:translateY(-1px);}
+.station[aria-current="true"]{border-color:var(--accent); background:var(--accent-soft);
+  box-shadow:inset 2px 0 0 var(--accent);}
+.station .s-dot{width:7px; height:7px; border-radius:50%; background:var(--ink-3);
+  flex:0 0 auto; margin-top:6px;}
+.station[data-porta="1"] .s-dot{background:var(--ok);}
+.station[data-mine="1"] .s-dot{background:var(--accent); box-shadow:0 0 0 3px var(--accent-soft);}
+.station.off{opacity:.26; filter:grayscale(1);}
+.station.off:hover{transform:none;}
+
+.alicerces{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:26px;}
+.alicerce{border:1px solid var(--rule); border-radius:4px; background:var(--surface);
+  padding:15px 16px;}
+.alicerce h3{margin:0 0 3px; font-size:13.5px; font-weight:600; letter-spacing:-0.01em;}
+.alicerce p{margin:0 0 11px; font-family:"IBM Plex Sans", sans-serif; font-size:11.5px;
+  color:var(--ink-3);}
+.alicerce .row{display:flex; gap:7px; flex-wrap:wrap;}
+.alicerce .station{width:auto; flex:1 1 150px;}
+@media (max-width:860px){ .alicerces{grid-template-columns:1fr;} }
+
+/* lista vertical abaixo de 1200px */
+.lista{display:none; flex-direction:column; gap:22px;}
+.lista .col{gap:7px;}
+
+@media (max-width:1199px){
+  .mapa, .mapa::after{display:none;}
+  .lista{display:flex;}
+  .alicerces{margin-top:22px;}
+}
+
+/* ---------- painel ---------- */
+.scrim{position:fixed; inset:0; background:rgba(16,22,32,.42); opacity:0; visibility:hidden;
+  transition:opacity .22s, visibility .22s; z-index:40;}
+.pnl-open .scrim{opacity:1; visibility:visible;}
+
+.painel{position:fixed; top:0; right:0; bottom:0; width:var(--panel-w); max-width:92vw;
+  background:var(--surface); border-left:1px solid var(--rule); z-index:50;
+  transform:translateX(100%); transition:transform .26s cubic-bezier(.4,0,.2,1);
+  display:flex; flex-direction:column; box-shadow:var(--shadow);}
+.pnl-open .painel{transform:translateX(0);}
+.painel__top{padding:20px 24px 0; border-bottom:1px solid var(--rule); flex:0 0 auto;}
+.painel__kicker{display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--ink-3);}
+.painel h2{margin:7px 0 4px; font-size:24px; font-weight:600; letter-spacing:-0.018em;
+  line-height:1.15; padding-right:40px;}
+.painel__flags{display:flex; gap:6px; flex-wrap:wrap; margin:0 0 14px;}
+.flag{font-family:"IBM Plex Sans", sans-serif; font-size:11px; padding:3px 8px;
+  border-radius:999px; background:var(--ok-soft); color:var(--ok); font-weight:500;}
+.flag--mine{background:var(--accent-soft); color:var(--accent);}
+.painel__x{position:absolute; top:17px; right:18px; width:32px; height:32px; cursor:pointer;
+  border:1px solid var(--rule); border-radius:3px; background:var(--surface); color:var(--ink-2);
+  font-size:16px; line-height:1; display:flex; align-items:center; justify-content:center;}
+.painel__x:hover{border-color:var(--accent); color:var(--accent);}
+
+.abas{display:flex; gap:2px; overflow-x:auto; scrollbar-width:none;}
+.abas::-webkit-scrollbar{display:none;}
+.aba{flex:0 0 auto; background:none; border:none; cursor:pointer; padding:10px 13px;
+  border-bottom:2px solid transparent; color:var(--ink-3);
+  font-family:"IBM Plex Sans", sans-serif; font-size:13.5px; white-space:nowrap;}
+.aba:hover{color:var(--ink);}
+.aba[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--accent); font-weight:500;}
+
+.painel__body{flex:1 1 auto; overflow-y:auto; padding:22px 24px 34px;
+  overscroll-behavior:contain;}
+.painel__body h4{font-size:12px; margin:0 0 9px; font-weight:600; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-3);}
+.painel__body p{margin:0 0 15px; color:var(--ink-2); font-size:16px;}
+.painel__body p.lead{color:var(--ink); font-size:17px;}
+.blk{margin-bottom:26px;}
+.blk:last-child{margin-bottom:0;}
+.lst{list-style:none; margin:0 0 15px; padding:0; display:flex; flex-direction:column; gap:9px;}
+.lst li{display:flex; gap:10px; color:var(--ink-2); font-size:15.5px; line-height:1.5;}
+.lst li::before{content:""; flex:0 0 auto; width:5px; height:5px; margin-top:9px;
+  border-radius:50%; background:var(--accent);}
+.lst--mito li::before{background:var(--warn); border-radius:0; height:2px; width:9px; margin-top:11px;}
+.lst--mito li b{color:var(--ink); font-weight:600; display:block;
+  font-family:"IBM Plex Sans", sans-serif; font-size:14px;}
+.tools{display:flex; gap:6px; flex-wrap:wrap; margin:0 0 15px;}
+.tool{font-family:"IBM Plex Mono", monospace; font-size:11.5px; padding:4px 9px;
+  border:1px solid var(--rule); border-radius:2px; background:var(--ground); color:var(--ink-2);}
+.passo{padding:13px 16px; background:var(--accent-soft); border-left:2px solid var(--accent);
+  color:var(--ink-2); font-size:15.5px;}
+.passo b{color:var(--ink); font-weight:600; font-family:"IBM Plex Sans", sans-serif;
+  font-size:12px; letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:3px;}
+
+.nivel{border-top:1px solid var(--rule); padding:15px 0;}
+.nivel:last-child{border-bottom:1px solid var(--rule);}
+.nivel__h{display:flex; align-items:baseline; gap:11px; margin-bottom:6px;}
+.nivel__n{font-family:"IBM Plex Mono", monospace; font-size:11px; font-weight:600;
+  color:var(--accent); letter-spacing:.05em;}
+.nivel__t{font-family:"IBM Plex Sans", sans-serif; font-size:14.5px; font-weight:600;}
+.nivel p{margin:0; font-size:15.5px;}
+
+.mig{display:flex; gap:7px; flex-wrap:wrap; margin:0 0 15px;}
+.mig button{font-family:"IBM Plex Sans", sans-serif; font-size:13px; padding:6px 11px;
+  border:1px solid var(--rule); border-radius:3px; background:var(--surface);
+  color:var(--accent); cursor:pointer; transition:border-color .14s;}
+.mig button:hover{border-color:var(--accent); background:var(--surface-2);}
+
+.faixa{border:1px solid var(--rule); border-radius:3px; background:var(--surface);
+  overflow:hidden; margin:0 0 14px;}
+.faixa__r{padding:11px 14px; border-bottom:1px solid var(--rule-soft);}
+.faixa__r:last-child{border-bottom:none;}
+.faixa__t{display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+  font-family:"IBM Plex Sans", sans-serif; font-size:12.5px; color:var(--ink-3); margin-bottom:5px;}
+.faixa__v{font-family:"IBM Plex Mono", monospace; font-size:14px; font-weight:600;
+  color:var(--ink); font-variant-numeric:tabular-nums;}
+.barra{height:7px; background:var(--surface-2); border-radius:999px; position:relative;
+  overflow:hidden;}
+.barra i{position:absolute; top:0; bottom:0; background:var(--accent); border-radius:999px;
+  opacity:.8;}
+.selo{display:inline-block; font-family:"IBM Plex Sans", sans-serif; font-size:11px;
+  padding:2px 7px; border-radius:999px; background:var(--warn-soft); color:var(--warn);
+  font-weight:600; margin-left:7px;}
+.fonte{font-family:"IBM Plex Sans", sans-serif; font-size:12.5px; color:var(--ink-3);
+  margin:0 0 15px;}
+.fonte a{color:var(--ink-3); text-decoration:underline;}
+.fonte a:hover{color:var(--accent);}
+
+.painel__foot{flex:0 0 auto; border-top:1px solid var(--rule); padding:13px 24px;
+  display:flex; gap:9px; align-items:center; background:var(--surface);}
+.lk{font-family:"IBM Plex Sans", sans-serif; font-size:13px; padding:7px 13px;
+  border:1px solid var(--rule); border-radius:3px; background:var(--surface);
+  color:var(--ink); cursor:pointer;}
+.lk:hover{border-color:var(--accent);}
+.nav-k{margin-left:auto; font-family:"IBM Plex Mono", monospace; font-size:11px;
+  color:var(--ink-3);}
+
+@media (max-width:760px){
+  .painel{top:auto; left:0; right:0; bottom:0; width:auto; max-width:none; height:92vh;
+    border-left:none; border-top:1px solid var(--rule); border-radius:12px 12px 0 0;
+    transform:translateY(100%);}
+  .pnl-open .painel{transform:translateY(0);}
+  .painel__top{padding:16px 18px 0;}
+  .painel__body{padding:18px 18px 30px;}
+  .painel__foot{padding:11px 18px;}
+  .nav-k{display:none;}
+}
+
+/* ---------- verdades + rodapé ---------- */
+.verdades{margin-top:54px; border-top:1px solid var(--rule); padding-top:34px;}
+.verdades h2{font-size:clamp(22px, 2.8vw, 28px); margin:9px 0 10px; font-weight:600;
+  letter-spacing:-0.015em;}
+.verdades > p{margin:0 0 24px; color:var(--ink-2); max-width:66ch;}
+.vlist{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); border-radius:4px; overflow:hidden;}
+.v{background:var(--surface); padding:19px 20px;}
+.v__n{font-family:"IBM Plex Mono", monospace; font-size:11px; font-weight:600;
+  color:var(--accent); letter-spacing:.05em;}
+.v p{margin:6px 0 0; font-size:15.5px; color:var(--ink-2);}
+.v b{color:var(--ink); font-weight:600;}
+
+footer{border-top:1px solid var(--rule); background:var(--surface);}
+.foot{padding:28px 0 38px; display:flex; flex-wrap:wrap; gap:16px 26px; align-items:baseline;
+  justify-content:space-between;}
+.foot p{margin:0; color:var(--ink-3); font-size:14px; max-width:62ch;}
+.foot nav{display:flex; gap:18px; flex-wrap:wrap;}
+.foot nav a{font-family:"IBM Plex Sans", sans-serif; font-size:14px; text-decoration:none;
+  color:var(--ink-2); border-bottom:1px solid var(--rule);}
+.foot nav a:hover{color:var(--accent); border-bottom-color:var(--accent);}
+
+@media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+</style>
+
+<header class="hero">
+  <div class="wrap hero__in">
+    <a class="back" href="index.html">&larr; Início</a>
+    <p class="eyebrow">Mapa de carreiras em dados</p>
+    <h1>29 carreiras, organizadas pelo caminho que o dado percorre</h1>
+    <p class="hero__deck">Quase todo mapa de carreira lista cargos — e cargo é sotaque de empresa:
+      o "cientista de dados" de uma é o "analista" de outra. Aqui a organização é outra:
+      <b>o dado nasce, é transportado, é organizado, é explicado, é previsto e vira automático.</b>
+      Clique em qualquer carreira para ver o que a pessoa faz, um dia comum, as ferramentas,
+      a trilha por nível, a faixa salarial e os mitos.</p>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap bar__in">
+    <div class="search">
+      <span class="search__i mono">⌕</span>
+      <label class="sr" for="q">Buscar carreira, ferramenta ou assunto</label>
+      <input id="q" type="search" placeholder="Buscar carreira, ferramenta ou assunto…" autocomplete="off">
+      <span class="search__k">/</span>
+    </div>
+    <div class="filters" id="filtros">
+      <button class="fchip" data-f="porta" aria-pressed="false">porta de entrada</button>
+      <button class="fchip" data-f="vagas" aria-pressed="false">muita vaga</button>
+      <button class="fchip" data-f="codigo" aria-pressed="false">pouco código</button>
+      <button class="fchip" data-f="planilha" aria-pressed="false">dá pra vir da planilha</button>
+    </div>
+    <span class="count mono" id="contador">29 de 29</span>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <div class="legend">
+    <span><i class="dot"></i> porta de entrada</span>
+    <span><i class="dot dot--mine"></i> onde eu trabalho</span>
+    <span><i class="dot dot--no"></i> exige estrada antes</span>
+  </div>
+
+  <div class="mapa" id="mapa"></div>
+  <div class="lista" id="lista"></div>
+  <div class="alicerces" id="alicerces"></div>
+
+  <section class="verdades">
+    <p class="eyebrow">Antes de escolher</p>
+    <h2>As cinco verdades que ninguém escreve no mapa</h2>
+    <p>Um mapa mostra o território. Ele não anda por você — e não promete que o caminho
+      é reto.</p>
+    <div class="vlist">
+      <div class="v"><span class="v__n">01</span>
+        <p>Quase ninguém entra na etapa que quer. <b>A maioria entra na 04 e migra</b> depois.</p></div>
+      <div class="v"><span class="v__n">02</span>
+        <p>Título de cargo é sotaque de empresa. <b>Leia a descrição da vaga</b>, não o nome dela.</p></div>
+      <div class="v"><span class="v__n">03</span>
+        <p>Ninguém sabe tudo da lista, <b>inclusive quem é sênior</b>. Isso aqui é mapa de território,
+          não checklist.</p></div>
+      <div class="v"><span class="v__n">04</span>
+        <p><b>SQL rende mais que IA pra quem começa.</b> Comece onde a porta já está aberta.</p></div>
+      <div class="v"><span class="v__n">05</span>
+        <p>As etapas 01 e 06 pagam mais, mas <b>exigem estrada</b>. Não existe atalho — existe ordem.</p></div>
+    </div>
+  </section>
+
+</main>
+
+<div class="scrim" id="scrim"></div>
+
+<aside class="painel" id="painel" role="dialog" aria-modal="false" aria-labelledby="p-nome" hidden>
+  <div class="painel__top">
+    <button class="painel__x" id="fechar" aria-label="Fechar painel">✕</button>
+    <div class="painel__kicker" id="p-kicker"></div>
+    <h2 id="p-nome"></h2>
+    <div class="painel__flags" id="p-flags"></div>
+    <div class="abas" role="tablist" aria-label="Seções da carreira">
+      <button class="aba" role="tab" data-aba="0" aria-selected="true">O que é</button>
+      <button class="aba" role="tab" data-aba="1" aria-selected="false">Trilha</button>
+      <button class="aba" role="tab" data-aba="2" aria-selected="false">Migração</button>
+      <button class="aba" role="tab" data-aba="3" aria-selected="false">Mercado</button>
+      <button class="aba" role="tab" data-aba="4" aria-selected="false">Mitos</button>
+    </div>
+  </div>
+  <div class="painel__body" id="p-body"></div>
+  <div class="painel__foot">
+    <button class="lk" id="copiar">Copiar link desta carreira</button>
+    <span class="nav-k mono">← → troca de carreira · Esc fecha</span>
+  </div>
+</aside>
+
+<footer>
+  <div class="wrap foot">
+    <p>Faixas salariais são referência de mercado, não promessa — e pesquisa pública de salário
+      tem viés de quem respondeu. Cada faixa mostra a fonte e a data da consulta.</p>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="https://www.linkedin.com/in/edivaldo-leite-67241a135/">LinkedIn</a>
+      <a href="https://github.com/edivaldousp-mentor">GitHub</a>
+    </nav>
+  </div>
+</footer>
+<script>
+const ETAPAS = [
+  {id:'e1', n:'01', t:'O dado nasce',        s:'quem constrói o produto'},
+  {id:'e2', n:'02', t:'É transportado',      s:'engenharia de dados'},
+  {id:'e3', n:'03', t:'É organizado',        s:'a ponte'},
+  {id:'e4', n:'04', t:'É explicado',         s:'análise e BI · porta de entrada'},
+  {id:'e5', n:'05', t:'É previsto',          s:'ciência e estatística'},
+  {id:'e6', n:'06', t:'Vira automático',     s:'IA e machine learning'}
+];
+const ALICERCES = [
+  {id:'aA', t:'Alicerce A — onde tudo roda', s:'infraestrutura e cloud'},
+  {id:'aB', t:'Alicerce B — as regras do jogo', s:'governança, LGPD e segurança'}
+];
+
+/* R$/mês, bruto, Brasil. Consulta: outubro de 2026. Escala comum até 28.000. */
+const FAIXAS = {
+  analise:{t:'Análise e BI', e:[3000,5000], p:[5500,8000], s:[9000,14000],
+    fonte:'Tera + Indeed', url:'https://somostera.com/blog/salario-de-analista-de-dados'},
+  engdados:{t:'Engenharia de dados', e:[6000,9000], p:[9500,13500], s:[15000,20000],
+    fonte:'Tabela federal de TI + Robert Half', url:'https://exame.com/tecnologia/examelab/salario-de-engenheiro-de-ia-dados-e-ciberseguranca-quanto-o-mercado-brasileiro-paga-em-2026/'},
+  ciencia:{t:'Ciência e estatística', e:[6000,9000], p:[14700,19100], s:[19100,24600],
+    fonte:'Robert Half (mediana 19.100)', url:'https://exame.com/tecnologia/examelab/salario-de-engenheiro-de-ia-dados-e-ciberseguranca-quanto-o-mercado-brasileiro-paga-em-2026/'},
+  ia:{t:'IA e machine learning', e:null, p:[17950,23550], s:[19500,27100],
+    fonte:'Robert Half', url:'https://exame.com/tecnologia/examelab/salario-de-engenheiro-de-ia-dados-e-ciberseguranca-quanto-o-mercado-brasileiro-paga-em-2026/',
+    nota:'Vaga de entrada em IA praticamente não existe: quase todo mundo chega aqui vindo de outra etapa.'},
+  dev:{t:'Desenvolvimento', e:[6050,8750], p:[9500,15900], s:[12400,20900],
+    fonte:'Robert Half (back-end, percentis)', url:'https://www.roberthalf.com/br/pt/vagas-detalhes/desenvolvedora-back-end-senior'},
+  infra:{t:'Infra, cloud e DevOps', e:[8000,12000], p:[14250,18500], s:[18500,23850],
+    fonte:'Robert Half (DevOps)', url:'https://www.roberthalf.com/br/pt/vagas-detalhes/analista-de-devops'},
+  seg:{t:'Segurança', e:[6200,10400], p:[8500,14300], s:[11300,19000],
+    fonte:'Robert Half', url:'https://exame.com/tecnologia/examelab/salario-de-engenheiro-de-ia-dados-e-ciberseguranca-quanto-o-mercado-brasileiro-paga-em-2026/'},
+  gov:{t:'Governança, qualidade e DPO', e:[5000,8000], p:[9000,14000], s:[15000,22000],
+    fonte:'Estimado a partir das famílias vizinhas', url:null, estimado:true,
+    nota:'Não existe pesquisa pública específica para essa família. A faixa foi inferida das famílias vizinhas — trate como ordem de grandeza, não como número.'},
+  gestao:{t:'Gestão de dados', e:null, p:[18000,24000], s:[22700,37950],
+    fonte:'Robert Half (gerente de dados)', url:'https://exame.com/tecnologia/examelab/salario-de-engenheiro-de-ia-dados-e-ciberseguranca-quanto-o-mercado-brasileiro-paga-em-2026/'}
+};
+const TETO = 28000;
+
+const C = [
+/* ===================== 01 — O DADO NASCE ===================== */
+{s:'front', n:'Dev Front-end', e:'e1', f:'dev', vagas:1,
+ oq:'Constrói a tela que a pessoa usa. Tudo que vira dado depois — o clique, o cadastro, o carrinho abandonado — passou primeiro por uma tela que alguém desenhou e programou.',
+ dia:'Pega uma tela no Figma, transforma em código, conecta nos endereços que o back-end expõe, testa em celular e em navegador velho, e corrige o que quebrou no deploy de ontem.',
+ fer:['HTML','CSS','JavaScript','TypeScript','React','Next.js','Git','Figma'],
+ prec:['Lógica de programação e manipulação de listas e objetos','Como o navegador carrega e renderiza uma página','Consumo de API: o que é um JSON, um status 404 e um CORS','Acessibilidade e responsividade — não é enfeite, é requisito','Noção de evento: é o clique rastreado aqui que vira linha na sua tabela depois'],
+ passo:'Monte uma página que consome uma API pública e mostra os dados em tela. Sem framework no primeiro projeto — você aprende mais apanhando do JavaScript puro.',
+ tr:{j:'JavaScript sólido, um framework, Git e um projeto no ar. Já entrega tela pronta com revisão.',
+     p:'Componentiza, cuida de performance e de estado, escreve teste e discute contrato de API com o back-end.',
+     s:'Define arquitetura de front, padroniza design system, mede experiência real do usuário e forma gente júnior.'},
+ vem:[], vai:['mobile','rpa','back'],
+ mitos:[['Precisa ser bom em matemática','Front é lógica, estrutura e cuidado com detalhe. Matemática pesada aparece em caso raro — gráfico e animação complexa.'],
+        ['É a parte fácil do desenvolvimento','Front é onde a regra de negócio encontra a realidade de 300 tamanhos de tela e usuário fazendo o que não devia.']]},
+
+{s:'back', n:'Dev Back-end', e:'e1', f:'dev', vagas:1,
+ oq:'Escreve a parte que ninguém vê: a regra de negócio, o banco de dados e os endereços que a tela consulta. É literalmente aqui que o dado é gravado pela primeira vez.',
+ dia:'Implementa uma regra nova, escreve a consulta que vai buscá-la, cria o teste, olha o log do erro que o time de suporte abriu e decide se o problema é código ou dado sujo na origem.',
+ fer:['Python','Java','C#','Node.js','SQL','Docker','Git','REST','Kafka'],
+ prec:['Modelagem de banco relacional — tabela, chave e relacionamento','SQL de verdade, não só SELECT','API: o que entra, o que sai e o que acontece quando falha','Teste automatizado e versionamento','Noção de concorrência e transação'],
+ passo:'Construa uma API pequena com banco de verdade: cadastro, consulta e uma regra de negócio. Depois quebre de propósito e aprenda a ler o erro.',
+ tr:{j:'Entrega endpoint com revisão, escreve SQL simples e entende o fluxo da aplicação.',
+     p:'Modela domínio, cuida de performance de consulta, escreve teste e participa de decisão de arquitetura.',
+     s:'Desenha o sistema, define contrato entre serviços, resolve incidente de produção e mentora o time.'},
+ vem:['analista-dados'], vai:['engdados','plataforma','rpa'],
+ mitos:[['Dado nasce limpo','Dado nasce do jeito que o formulário permitiu. Campo livre e validação frouxa aqui viram quatro semanas de limpeza três etapas adiante.'],
+        ['Back-end não precisa entender negócio','Back-end é onde a regra de negócio vira código. Quem não entende a regra escreve o bug com perfeição técnica.']]},
+
+{s:'mobile', n:'Dev Mobile', e:'e1', f:'dev',
+ oq:'Faz o aplicativo do celular. Em banco, varejo e delivery, é de longe a maior fonte de evento: a maior parte do dado de comportamento do cliente nasce no app.',
+ dia:'Implementa tela e fluxo, trata permissão e conexão ruim, instrumenta o evento que o time de dados pediu, e publica numa loja que pode demorar dias para aprovar.',
+ fer:['Kotlin','Swift','React Native','Flutter','Firebase','Git'],
+ prec:['Ciclo de vida de app e de tela','Trabalhar offline e sincronizar depois','Instrumentação de evento e analytics','Publicação em loja e política de privacidade','Consumo de API com rede instável'],
+ passo:'Publique um app simples numa loja, nem que seja só para você. O aprendizado está na publicação, não no código.',
+ tr:{j:'Monta tela e navegação em um framework, com revisão.',
+     p:'Cuida de performance, offline, crash e instrumentação de evento.',
+     s:'Define arquitetura do app, estratégia de release e padrão de telemetria com o time de dados.'},
+ vem:['front'], vai:['front','rpa'],
+ mitos:[['Dá pra aprender só um sistema operacional','Dá — mas quem entende as duas lojas e as duas políticas vale consideravelmente mais.'],
+        ['Evento de app é problema do time de dados','O evento nasce no código do app. Se vier com nome errado aqui, nasce errado para sempre.']]},
+
+{s:'rpa', n:'Arquiteto de RPA', e:'e1', f:'dev', planilha:1,
+ oq:'Automatiza processo que depende de clique humano em sistema que não tem API — o legado, o portal do governo, o ERP antigo. É a ponte entre o processo manual e o dado estruturado.',
+ dia:'Mapeia o processo com a área de negócio, grava o fluxo no robô, trata as exceções (tela que mudou, pop-up novo, captcha), e monitora a fila de execução da madrugada.',
+ fer:['UiPath','Automation Anywhere','Power Automate','Python','VBA','SQL'],
+ prec:['Mapeamento de processo — onde começa, onde termina, o que pode dar errado','Lógica de programação e tratamento de exceção','Noção de controle e trilha de auditoria','Saber dizer não: processo ruim automatizado continua ruim, só que mais rápido'],
+ passo:'Automatize uma tarefa repetitiva sua com Power Automate ou Python. Cronometre antes e depois — esse número é o seu portfólio.',
+ tr:{j:'Constrói robô simples a partir de processo já mapeado.',
+     p:'Mapeia o processo, trata exceção, calcula o retorno da automação.',
+     s:'Desenha a esteira de automação, define governança dos robôs e decide o que não deve ser automatizado.'},
+ vem:['analista-negocios','back'], vai:['engdados','agentic','analista-negocios'],
+ mitos:[['RPA está morrendo por causa da IA','RPA mudou de forma. Sistema legado sem API continua existindo, e agora o robô tem um modelo decidindo o caminho.'],
+        ['É só gravar a tela','Gravar é 10%. O trabalho é prever o que quebra quando o portal muda de layout numa terça-feira.']]},
+
+/* ===================== 02 — É TRANSPORTADO ===================== */
+{s:'engdados', n:'Engenheiro de Dados', e:'e2', f:'engdados', vagas:1,
+ oq:'Tira o dado de onde ele nasceu e coloca onde ele pode ser usado. Constrói o encanamento: extrai, limpa, transporta e guarda, todo dia, sem quebrar.',
+ dia:'Olha se a carga da madrugada rodou, descobre que a origem mudou uma coluna sem avisar, corrige, reprocessa, e no meio da tarde constrói a esteira nova que a área de risco pediu.',
+ fer:['SQL','Python','Spark','Airflow','dbt','Kafka','Databricks','AWS/GCP/Azure'],
+ prec:['SQL avançado e modelagem dimensional','Python para processamento de dado em volume','Orquestração: o que roda depois do quê, e o que fazer quando falha','Formato e partição — parquet, particionamento, custo de leitura','Versionamento e esteira de deploy'],
+ passo:'Monte uma esteira que roda sozinha todo dia: busca dado de uma API pública, trata e grava num banco. Agende com Airflow ou com o agendador do seu sistema.',
+ tr:{j:'Escreve transformação em SQL e Python dentro de uma esteira que já existe.',
+     p:'Cria a esteira do zero, modela a camada de consumo, cuida de custo e de reprocessamento.',
+     s:'Desenha a arquitetura de dados, define padrão e contrato de dado com as origens, decide tecnologia.'},
+ vem:['back','analista-dados','analytics-eng'], vai:['arq-dados','dataops','mlops','plataforma'],
+ mitos:[['É só mover arquivo de um lado para o outro','É garantir que o número de ontem continue sendo o mesmo número hoje. Isso se chama confiabilidade, e é a parte difícil.'],
+        ['Precisa saber todas as ferramentas da lista','Precisa saber SQL muito bem e uma linguagem. O resto é sotaque de empresa.']]},
+
+{s:'dataops', n:'DataOps', e:'e2', f:'engdados',
+ oq:'Cuida para que a esteira de dados seja confiável: monitoramento, alerta, teste automatizado, controle de custo e resposta a incidente. É o SRE do mundo de dados.',
+ dia:'Investiga por que a carga atrasou, ajusta alerta que está gritando à toa, revisa o custo do cluster que dobrou, e automatiza o reprocessamento que alguém fazia na mão.',
+ fer:['Airflow','Terraform','Docker','Kubernetes','Grafana','Great Expectations','Git'],
+ prec:['Engenharia de dados antes de tudo — você cuida do que ele constrói','Observabilidade: métrica, log e alerta que significam algo','Infraestrutura como código','Gestão de custo em nuvem','Processo de incidente e post-mortem'],
+ passo:'Pegue uma esteira que você já tem e coloque teste de qualidade e alerta nela. Quebre de propósito e veja se o alerta chega.',
+ tr:{j:'Opera e monitora esteira existente, atende chamado.',
+     p:'Automatiza, instrumenta, cria teste de qualidade e reduz custo.',
+     s:'Define padrão de confiabilidade da plataforma e a cultura de incidente.'},
+ vem:['engdados','devops'], vai:['plataforma','mlops','arq-dados'],
+ mitos:[['É o suporte do time de dados','É quem garante que o painel da diretoria não amanheça vazio. Dá para chamar de suporte, mas é o suporte que segura o negócio.'],
+        ['Alerta demais é sinal de maturidade','Alerta demais é sinal de alerta mal calibrado. Time que ignora alerta não tem alerta.']]},
+
+{s:'arq-dados', n:'Arquiteto de Dados', e:'e2', f:'gestao',
+ oq:'Decide a planta da casa: onde o dado mora, em que formato, quem acessa, quanto custa e como as peças conversam. É uma função de decisão, não de execução.',
+ dia:'Conduz reunião de desenho com engenharia, segurança e negócio, escreve o documento da decisão, avalia custo de duas opções de arquitetura e revisa modelo de dado proposto pelo time.',
+ fer:['Modelagem','Cloud (AWS/GCP/Azure)','Data lake / lakehouse','Catálogo de dados','SQL'],
+ prec:['Modelagem relacional e dimensional com profundidade','Trade-off de custo, latência e governança','Segurança e privacidade por desenho','Comunicação escrita — arquitetura que não foi documentada não existe','Experiência prévia de engenharia, invariavelmente'],
+ passo:'Não é cargo de entrada. O passo é escrever a decisão de arquitetura do seu projeto atual: duas opções, critérios e por que você escolheu uma.',
+ tr:{j:'Não existe júnior aqui.',
+     p:'Arquiteto de um domínio, com desenho revisado por alguém mais sênior.',
+     s:'Responde pela arquitetura de dados da empresa e pelas decisões de plataforma.'},
+ vem:['engdados','dataops','analytics-eng'], vai:['governanca'],
+ mitos:[['Arquiteto não precisa mais escrever código','Arquiteto que parou de escrever código vira desenhador de slide. O desenho precisa sobreviver à implementação.'],
+        ['A arquitetura certa é a mais moderna','A arquitetura certa é a que o time consegue operar na segunda-feira de manhã.']]},
+
+/* ===================== 03 — É ORGANIZADO ===================== */
+{s:'analytics-eng', n:'Analytics Engineer', e:'e3', f:'engdados', planilha:1,
+ oq:'A ponte entre quem transporta e quem explica. Pega o dado cru e transforma nas tabelas limpas e confiáveis que a análise usa, com teste, documentação e definição única de métrica.',
+ dia:'Escreve transformação em dbt, discute com a área o que exatamente conta como "cliente ativo", documenta a métrica, e descobre que dois painéis usavam definições diferentes do mesmo número.',
+ fer:['SQL','dbt','Git','Python','Looker/Power BI','Snowflake/BigQuery/Databricks'],
+ prec:['SQL muito bom — é a ferramenta principal, não uma das ferramentas','Modelagem dimensional: fato e dimensão','Teste de dado e documentação como parte do trabalho','Versionamento e revisão de código','Tradução de regra de negócio em definição de métrica'],
+ passo:'Pegue duas tabelas cruas, modele uma camada limpa com dbt e escreva os testes. Documente cada métrica — é a parte que separa a função.',
+ tr:{j:'Escreve modelo simples em SQL dentro de um projeto existente.',
+     p:'Modela domínio inteiro, define métrica com a área e cuida de qualidade.',
+     s:'Define o padrão de modelagem e a camada semântica da empresa.'},
+ vem:['analista-dados','analista-bi','engdados'], vai:['engdados','arq-dados','eng-bi'],
+ mitos:[['É engenheiro de dados com outro nome','Engenheiro cuida do encanamento. Analytics engineer cuida do significado: o que o número quer dizer e por que dois relatórios discordam.'],
+        ['É função júnior','É a função que mais exige tradução entre técnico e negócio. Difícil fazer bem sem rodagem nos dois lados.']]},
+
+{s:'eng-bi', n:'Engenheiro de BI', e:'e3', f:'analise', planilha:1,
+ oq:'Constrói a camada de BI de pé: modelo de dados do Power BI ou do Looker, métricas, permissão de acesso e desempenho do painel — para que o analista só precise analisar.',
+ dia:'Refaz o modelo de um painel que levava 40 segundos para abrir, cria a medida que a controladoria pediu, ajusta segurança por linha para cada gerência ver só a sua, e documenta.',
+ fer:['Power BI','DAX','Tableau','Looker','SQL','Power Query'],
+ prec:['Modelagem em estrela e relacionamento entre tabelas','DAX ou linguagem equivalente com profundidade','Desempenho: por que o painel está lento','Segurança por linha e governança de acesso','SQL para preparar o dado antes de ele chegar no painel'],
+ passo:'Pegue um painel lento e deixe rápido. Documente o antes e o depois — essa história vale mais que dez painéis bonitos.',
+ tr:{j:'Monta visual e medida simples sobre modelo pronto.',
+     p:'Modela do zero, otimiza desempenho e implanta segurança por linha.',
+     s:'Define o padrão corporativo de BI, governança de workspace e estratégia de autoatendimento.'},
+ vem:['analista-bi','analista-dados'], vai:['analytics-eng','engdados','governanca'],
+ mitos:[['BI é arrastar e soltar','Arrastar e soltar é a demonstração do vendedor. O trabalho é o modelo embaixo — e modelo errado produz número errado com muita elegância.'],
+        ['DAX é parecido com fórmula de Excel','A sintaxe parece. O comportamento não: DAX trabalha com contexto de filtro, e é aí que todo mundo tropeça.']]},
+
+/* ===================== 04 — É EXPLICADO ===================== */
+{s:'analista-dados', n:'Analista de Dados', e:'e4', f:'analise', porta:1, vagas:1, planilha:1,
+ oq:'Responde perguntas de negócio com dado. É a porta de entrada mais larga da área e, na prática, a função que mais existe no mercado brasileiro.',
+ dia:'Recebe a pergunta ("por que a inadimplência subiu em março?"), descobre onde está o dado, escreve a consulta, cruza, encontra o padrão, monta o gráfico e explica em reunião para quem não é técnico.',
+ fer:['SQL','Excel','Power BI','Python','Google Sheets'],
+ prec:['SQL — é o idioma do trabalho, não um diferencial','Excel de verdade: tabela dinâmica, PROCX, Power Query','Estatística descritiva: média, mediana, distribuição e por que a média engana','Visualização honesta','Saber fazer a pergunta antes de buscar a resposta'],
+ passo:'Pegue uma base pública, faça três perguntas de negócio a ela e responda com SQL. Escreva o resultado como se fosse para o seu chefe — essa escrita é metade da vaga.',
+ tr:{j:'Executa análise pedida, com SQL e planilha, sob orientação.',
+     p:'Traduz a pergunta vaga da área em análise, escolhe o recorte e defende a conclusão.',
+     s:'Define a pergunta certa, questiona a demanda, orienta júnior e influencia decisão.'},
+ vem:['analista-negocios'], vai:['cientista','analytics-eng','product-analyst','engdados','analista-bi'],
+ mitos:[['É o degrau que se abandona rápido','É a função que mais conversa com decisão. Analista sênior bom é disputado — e caro.'],
+        ['Precisa de Python para entrar','Precisa de SQL. Python entra quando a repetição aparece, não antes.']]},
+
+{s:'analista-bi', n:'Analista de BI', e:'e4', f:'analise', porta:1, vagas:1, codigo:1, planilha:1,
+ oq:'Transforma dado em painel que a empresa acompanha todo dia. É a carreira mais acessível para quem vem da planilha e não quer programar muito.',
+ dia:'Atualiza e corrige painel, atende pedido de indicador novo, conversa com a área para entender o que ela realmente quer ver, e explica por que dois relatórios mostram números diferentes.',
+ fer:['Power BI','Excel','SQL','DAX','Power Query','Tableau'],
+ prec:['Power BI com modelo, não só visual','SQL para buscar o dado na fonte','Noção de indicador: o que mede, de onde vem, quem usa','Design de gráfico: cor é informação, não decoração','Conversa com área de negócio'],
+ passo:'Monte um painel de ponta a ponta com base pública: busque o dado, modele, crie três indicadores e publique. Depois mostre para alguém que não é da área e veja o que a pessoa não entendeu.',
+ tr:{j:'Mantém painel existente e cria visual simples.',
+     p:'Modela, cria métrica, otimiza e levanta requisito com a área.',
+     s:'Define indicador com a diretoria e padroniza a camada de BI.'},
+ vem:['analista-negocios'], vai:['eng-bi','analytics-eng','analista-dados','product-analyst'],
+ mitos:[['BI é a versão fácil de dados','BI é onde o erro aparece para a diretoria inteira. Pressão não falta.'],
+        ['Painel bonito é painel bom','Painel com 40 indicadores é painel com zero indicadores. Bom é o que muda uma decisão.']]},
+
+{s:'product-analyst', n:'Product Analyst', e:'e4', f:'analise', porta:1, codigo:1,
+ oq:'Analista de dados especializado em produto digital: funil, retenção, teste A/B e comportamento de usuário. Senta junto do time de produto e ajuda a decidir o que construir.',
+ dia:'Olha a queda de conversão de uma etapa do cadastro, desenha o teste A/B, acompanha o resultado, e diz ao time de produto se a diferença é real ou é ruído.',
+ fer:['SQL','Amplitude','Mixpanel','GA4','Python','Power BI'],
+ prec:['SQL e análise de funil e de coorte','Teste A/B: desenho, tamanho de amostra e leitura honesta do resultado','Instrumentação de evento — e saber quando o evento está errado','Noção de produto e de experiência do usuário','Comunicação direta com quem decide'],
+ passo:'Pegue um funil qualquer (um site seu, um app público) e analise onde as pessoas desistem. Proponha uma mudança e diga como mediria se funcionou.',
+ tr:{j:'Monta relatório de funil e acompanha métrica definida por outro.',
+     p:'Desenha e lê teste A/B, investiga comportamento, propõe hipótese.',
+     s:'Define a estratégia de medição do produto e influencia o roteiro.'},
+ vem:['analista-dados','analista-negocios'], vai:['cientista','analista-dados','analista-bi'],
+ mitos:[['Teste A/B é só comparar duas médias','É desenho de experimento. Sem tamanho de amostra e sem critério de parada, você está lendo ruído com confiança.'],
+        ['Precisa saber programar bem','Precisa saber SQL muito bem e estatística o suficiente para não ser enganado pelo próprio resultado.']]},
+
+{s:'analista-negocios', n:'Analista de Negócios', e:'e4', f:'analise', porta:1, codigo:1, planilha:1,
+ oq:'Fica entre a área que tem o problema e o time que vai resolver. Traduz necessidade em requisito, mapeia processo e garante que a solução entregue resolva o que foi pedido.',
+ dia:'Entrevista a área, desenha o processo atual, escreve o requisito, valida com quem pediu, acompanha a entrega e testa se o que chegou é o que foi combinado.',
+ fer:['Excel','SQL básico','BPMN','Jira','Confluence','Power BI'],
+ prec:['Escuta e entrevista — a maior parte do trabalho','Mapeamento de processo','Escrita clara de requisito','Noção de dado o suficiente para não pedir o impossível','Negociação de escopo'],
+ passo:'Documente um processo que você já conhece: entrada, etapas, decisões e saída. Mostre para alguém que executa e corrija onde você errou.',
+ tr:{j:'Levanta requisito simples e documenta processo sob orientação.',
+     p:'Conduz o levantamento, negocia escopo e valida entrega.',
+     s:'Lidera iniciativa que cruza áreas e desafia a demanda antes de aceitá-la.'},
+ vem:[], vai:['analista-dados','analista-bi','rpa','governanca'],
+ mitos:[['É função de quem não é técnico','É a função que mais evita desperdício. Projeto morre mais por requisito errado do que por código ruim.'],
+        ['Não precisa de SQL','Precisa do suficiente para conferir se o que a área afirma está mesmo no dado.']]},
+
+/* ===================== 05 — É PREVISTO ===================== */
+{s:'cientista', n:'Cientista de Dados', e:'e5', f:'ciencia', vagas:1,
+ oq:'Usa estatística e aprendizado de máquina para responder o que ainda não aconteceu: quem vai comprar, quem vai deixar de pagar, quanto vai vender.',
+ dia:'Entende o problema com a área, monta a base, constrói variável, treina modelo, valida fora da amostra, e passa mais tempo explicando o resultado do que treinando o modelo.',
+ fer:['Python','SQL','scikit-learn','pandas','Spark','MLflow','Databricks'],
+ prec:['Estatística antes de biblioteca: distribuição, viés, significância','SQL — a maior parte do tempo é preparar dado, não modelar','Construção de variável, que é onde o ganho de verdade está','Validação honesta: fora do tempo, fora da amostra','Explicar o modelo para quem decide, sem jargão'],
+ passo:'Faça um projeto de ponta a ponta com base pública: problema, dado, modelo, validação e uma conclusão de negócio. Um projeto bem contado vale mais que oito notebooks.',
+ tr:{j:'Treina e valida modelo sobre base já preparada, com orientação.',
+     p:'Conduz o projeto do problema à entrega e defende a metodologia.',
+     s:'Escolhe que problema vale modelar, desenha a solução e mata projeto que não deveria existir.'},
+ vem:['analista-dados','estatistico','product-analyst'], vai:['cientista-risco','eng-ml','eng-ia','pesquisador'],
+ mitos:[['O trabalho é treinar modelo','O trabalho é preparar dado e explicar resultado. Treinar é a parte curta.'],
+        ['Precisa de mestrado','Ajuda em pesquisa. Na maioria das vagas de mercado, projeto bem feito e SQL sólido pesam mais.']]},
+
+{s:'estatistico', n:'Estatístico / Econometrista', e:'e5', f:'ciencia', codigo:1,
+ oq:'Responde perguntas de causa, não só de correlação: esse programa funcionou? esse preço aumentou a venda, ou foi o Natal? Trabalha com inferência, desenho de experimento e modelo causal.',
+ dia:'Desenha o experimento ou o quase-experimento, escolhe o método de identificação, roda o modelo, calcula o intervalo e explica o que o número não permite concluir.',
+ fer:['R','Python','Stata','SQL','statsmodels'],
+ prec:['Inferência estatística com profundidade','Desenho de experimento e amostragem','Métodos causais: diferenças em diferenças, variável instrumental, descontinuidade','Séries temporais','Honestidade com incerteza — é o diferencial da função'],
+ passo:'Pegue uma pergunta de causa do seu trabalho e escreva como você a responderia: qual o contrafactual, qual o método, qual a ameaça à identificação.',
+ tr:{j:'Roda análise definida por outro e cuida da base.',
+     p:'Escolhe o método, defende a identificação e comunica a incerteza.',
+     s:'Desenha a estratégia de medição da empresa e arbitra disputa metodológica.'},
+ vem:['cientista','analista-dados'], vai:['cientista','cientista-risco','pesquisador'],
+ mitos:[['É cientista de dados mais acadêmico','É quem sabe quando o número não permite a conclusão que a reunião quer. Função cara justamente por isso.'],
+        ['Modelo preditivo responde causa','Prever e explicar são problemas diferentes. Modelo com ótima previsão pode dar conselho de negócio péssimo.']]},
+
+{s:'cientista-risco', n:'Cientista de Dados de Risco', e:'e5', f:'ciencia', mine:1,
+ oq:'Constrói os modelos que decidem crédito, cobrança, fraude e pricing em instituição financeira. Modelo aqui não é experimento: é decisão regulada que afeta a vida de alguém e precisa ser explicada ao regulador.',
+ dia:'Monta a base com histórico de bureau e comportamento, constrói variável, ajusta o score, valida estabilidade no tempo, documenta a metodologia e defende o modelo em comitê.',
+ fer:['Python','SQL','SAS','Spark','Databricks','Power BI','scikit-learn'],
+ prec:['Estatística e modelagem supervisionada','Métricas da área: KS, Gini, PSI, WOE e Information Value','Regra do jogo: Resolução 4.557, LGPD, documentação e validação independente','Interpretabilidade — modelo que não se explica não entra em produção','Noção de negócio: perda esperada, aprovação, inadimplência e margem'],
+ passo:'Construa um scorecard de crédito com base pública: faça o WOE, ajuste a regressão, calcule KS e Gini e escreva o relatório de validação. É esse relatório que o mercado quer ver.',
+ tr:{j:'Prepara base e roda ajuste sob supervisão de modelo já desenhado.',
+     p:'Desenvolve o modelo de ponta a ponta e escreve a documentação regulatória.',
+     s:'Define a estratégia de modelos da carteira, responde ao comitê e ao regulador.'},
+ vem:['cientista','analista-dados','estatistico'], vai:['eng-ml','governanca','pesquisador'],
+ mitos:[['O modelo mais preciso ganha','Ganha o modelo que é preciso, estável no tempo e explicável. Precisão sozinha não passa na validação.'],
+        ['Regulação atrapalha o trabalho técnico','Regulação obriga a documentar e validar — o que todo modelo deveria ter de qualquer forma.']]},
+
+/* ===================== 06 — VIRA AUTOMÁTICO ===================== */
+{s:'eng-ml', n:'Engenheiro de Machine Learning', e:'e6', f:'ia',
+ oq:'Pega o modelo que funcionou no notebook e faz ele funcionar para milhões de pessoas, todo dia, com monitoramento. É engenharia de software aplicada a modelo.',
+ dia:'Transforma código de pesquisa em serviço, cuida de latência, implanta nova versão sem derrubar a anterior, e investiga por que a distribuição de entrada mudou na semana passada.',
+ fer:['Python','Docker','Kubernetes','MLflow','Spark','FastAPI','AWS/GCP'],
+ prec:['Engenharia de software de verdade: teste, versionamento, esteira','Modelagem o suficiente para conversar de igual para igual com o cientista','Servir modelo: lote e tempo real','Monitoramento de desvio de dado e de desempenho','Infraestrutura e custo'],
+ passo:'Pegue um modelo seu e coloque no ar como API, com Docker e um teste automatizado. O salto de aprendizado está em colocar no ar, não em treinar.',
+ tr:{j:'Praticamente não existe — chega-se aqui vindo de dev ou de ciência de dados.',
+     p:'Coloca modelo em produção e cuida da esteira.',
+     s:'Define a plataforma de ML e o padrão de implantação da empresa.'},
+ vem:['cientista','back','engdados'], vai:['mlops','eng-ia','plataforma'],
+ mitos:[['É cientista de dados que sabe Docker','É engenheiro que entende modelo. A base é software, não estatística.'],
+        ['Modelo em produção está pronto','Modelo em produção começa a envelhecer no dia seguinte. Sem monitoramento, ele apodrece em silêncio.']]},
+
+{s:'mlops', n:'MLOps', e:'e6', f:'ia',
+ oq:'Constrói e opera a plataforma onde os modelos vivem: treino reprodutível, registro de versão, implantação, monitoramento e volta atrás quando dá errado.',
+ dia:'Automatiza o retreino, padroniza o registro de modelo, configura alerta de desvio, e ajuda três times diferentes a usarem a mesma esteira em vez de três gambiarras.',
+ fer:['MLflow','Kubeflow','Airflow','Terraform','Kubernetes','Docker','Git'],
+ prec:['DevOps e infraestrutura como código','Ciclo de vida de modelo: dado, treino, registro, implantação, monitoramento','Reprodutibilidade — mesmo dado e mesmo código, mesmo resultado','Observabilidade de modelo','Governança de modelo e trilha de auditoria'],
+ passo:'Monte uma esteira que treina, registra e implanta um modelo sozinha, com MLflow. Depois force um desvio nos dados e veja se o alerta dispara.',
+ tr:{j:'Não existe júnior — vem de DevOps, engenharia de dados ou de ML.',
+     p:'Opera e evolui a plataforma de ML.',
+     s:'Define arquitetura e governança de modelos da empresa.'},
+ vem:['eng-ml','devops','dataops'], vai:['plataforma','eng-ia','governanca'],
+ mitos:[['MLOps é DevOps com outro nome','DevOps versiona código. Aqui você versiona código, dado e modelo ao mesmo tempo — e os três precisam combinar.'],
+        ['Só empresa grande precisa','Qualquer empresa com dois modelos em produção já precisa. Sem isso, ninguém sabe qual versão decidiu o quê.']]},
+
+{s:'eng-ia', n:'Engenheiro de IA', e:'e6', f:'ia',
+ oq:'Constrói produto em cima de modelos de linguagem: assistente, busca semântica, extração de documento, geração com recuperação de contexto. Usa o modelo de outra pessoa e resolve o problema da sua.',
+ dia:'Ajusta o prompt e a recuperação de contexto, mede a qualidade da resposta com um conjunto de avaliação, controla custo por chamada e trata o caso em que o modelo inventa.',
+ fer:['Python','LangChain','Banco vetorial','APIs de LLM','FastAPI','Docker'],
+ prec:['Engenharia de software e API','Recuperação de contexto: particionar, indexar, buscar e avaliar','Avaliação — sem conjunto de teste, "melhorou" é opinião','Custo e latência por chamada','Limites e risco: alucinação, vazamento de dado, injeção de prompt'],
+ passo:'Construa um assistente sobre os seus próprios documentos e monte 30 perguntas de avaliação. O que ensina é a avaliação, não o protótipo.',
+ tr:{j:'Raro. Entra-se vindo de desenvolvimento ou de ciência de dados.',
+     p:'Constrói e avalia aplicação de IA em produção, com custo sob controle.',
+     s:'Define arquitetura de IA, política de uso e critério de aceitação.'},
+ vem:['back','cientista','eng-ml'], vai:['agentic','pesquisador','mlops'],
+ mitos:[['É só escrever prompt','Prompt é 10%. O trabalho é recuperação de contexto, avaliação, custo e tratar o erro do modelo.'],
+        ['Modelo maior resolve','Modelo maior custa mais e continua inventando. O que resolve é contexto bom e avaliação séria.']]},
+
+{s:'agentic', n:'Engenheiro de Agentes (Agentic AI)', e:'e6', f:'ia',
+ oq:'Constrói sistemas em que o modelo não só responde: ele decide, usa ferramenta, executa passo e verifica o próprio resultado. É a fronteira entre IA e automação de processo.',
+ dia:'Desenha o fluxo do agente, define que ferramentas ele pode chamar, coloca o limite de segurança, mede quantas tarefas ele conclui sozinho e investiga as que falharam no meio.',
+ fer:['Python','Frameworks de agentes','MCP','APIs de LLM','Docker','Filas'],
+ prec:['Engenharia de IA antes — agente é o passo seguinte','Desenho de ferramenta e de contrato de chamada','Avaliação de tarefa de ponta a ponta, não de resposta isolada','Segurança: o que o agente nunca pode fazer sozinho','Observabilidade de execução — rastrear cada passo'],
+ passo:'Automatize uma tarefa sua de várias etapas com um agente e registre cada passo. Conte quantas vezes ele terminou sozinho — esse número é o projeto.',
+ tr:{j:'Não existe.',
+     p:'Constrói agente com ferramenta e avaliação.',
+     s:'Define arquitetura, limite de autonomia e governança de agentes.'},
+ vem:['eng-ia','rpa','back'], vai:['eng-ia','plataforma'],
+ mitos:[['Agente substitui o RPA','Agente decide o caminho; RPA executa o caminho conhecido. Em processo crítico os dois convivem.'],
+        ['Mais autonomia é melhor','Mais autonomia é mais risco. A engenharia está em escolher onde o humano aprova.']]},
+
+{s:'visao-nlp', n:'Engenheiro de Visão / NLP', e:'e6', f:'ia',
+ oq:'Trabalha com dado que não cabe em tabela: imagem, vídeo, áudio e texto. Em banco, é quem lê documento, confere selfie com documento e classifica reclamação.',
+ dia:'Rotula e audita amostra, treina ou ajusta o modelo, mede erro por recorte da população, e trata o caso difícil — foto escura, documento amassado, gíria regional.',
+ fer:['Python','PyTorch','TensorFlow','OpenCV','Hugging Face','spaCy'],
+ prec:['Aprendizado profundo e transferência de aprendizado','Rotulagem e qualidade de anotação — é aqui que o projeto morre','Métrica por recorte: erro médio bom pode esconder erro grave num grupo','Custo computacional','Viés e implicação ética do erro'],
+ passo:'Treine um classificador de imagem ou de texto com base pública e meça o erro por subgrupo, não só o total.',
+ tr:{j:'Raro, e geralmente com formação específica.',
+     p:'Ajusta e avalia modelo em produção para um domínio.',
+     s:'Define a estratégia de dado não estruturado da empresa.'},
+ vem:['cientista','pesquisador'], vai:['eng-ia','pesquisador','eng-ml'],
+ mitos:[['O difícil é o modelo','O difícil é a base rotulada. Modelo pronto existe aos milhares; base boa do seu problema, não.'],
+        ['Acurácia alta significa que funciona','Acurácia alta com classe desbalanceada pode significar que o modelo aprendeu a chutar sempre o mesmo.']]},
+
+{s:'pesquisador', n:'Pesquisador de IA', e:'e6', f:'ia', codigo:0,
+ oq:'Cria método novo em vez de aplicar método existente. Trabalha em laboratório de empresa grande ou na universidade, com publicação e experimentação como entrega.',
+ dia:'Lê artigo, formula hipótese, implementa, roda experimento caro, falha, ajusta, e escreve. A maior parte do tempo o resultado é negativo — e isso faz parte.',
+ fer:['Python','PyTorch','JAX','Cluster de GPU','LaTeX'],
+ prec:['Matemática: álgebra linear, cálculo, probabilidade e otimização','Leitura crítica de artigo','Rigor experimental e reprodutibilidade','Escrita científica','Inglês de leitura e de escrita'],
+ passo:'Reproduza o resultado de um artigo recente e escreva o que não bateu. Reprodução é o melhor portfólio de pesquisa que existe.',
+ tr:{j:'Entra via mestrado, doutorado ou estágio de pesquisa.',
+     p:'Conduz linha de pesquisa e publica.',
+     s:'Define a agenda de pesquisa e orienta pesquisadores.'},
+ vem:['cientista','estatistico','visao-nlp'], vai:['eng-ia','visao-nlp'],
+ mitos:[['É o topo da carreira em dados','É outra carreira, com outra métrica de sucesso. Paga bem, mas pesquisa e produto medem coisas diferentes.'],
+        ['Precisa de doutorado sempre','Na maioria dos laboratórios industriais, sim ou quase. É a exceção do mapa em que o diploma pesa de verdade.']]},
+
+/* ===================== ALICERCE A ===================== */
+{s:'cloud', n:'Engenheiro de Cloud', e:'aA', f:'infra',
+ oq:'Constrói e mantém a nuvem onde tudo isso roda: rede, armazenamento, permissão e custo. Sem essa camada, não há esteira nem modelo no ar.',
+ dia:'Provisiona ambiente com código, revisa permissão aberta demais, investiga a fatura que cresceu 30%, e desenha a rede do novo ambiente de dados.',
+ fer:['AWS','GCP','Azure','Terraform','Kubernetes','Linux','Redes'],
+ prec:['Redes e Linux','Infraestrutura como código','Identidade e permissão — o erro mais caro da nuvem','Gestão de custo','Alta disponibilidade e recuperação de desastre'],
+ passo:'Suba um ambiente inteiro com Terraform e destrua. Depois repita e veja se volta idêntico — esse é o teste.',
+ tr:{j:'Opera ambiente existente e atende chamado.',
+     p:'Provisiona com código, cuida de segurança e de custo.',
+     s:'Desenha a arquitetura de nuvem e a estratégia multi-ambiente.'},
+ vem:['devops'], vai:['devops','plataforma','seguranca'],
+ mitos:[['Nuvem é mais barata','Nuvem é mais elástica. Mais barata só com alguém cuidando — e é esse alguém.'],
+        ['É só clicar no painel da AWS','Clicar não se repete nem se audita. Por isso tudo vira código.']]},
+
+{s:'devops', n:'DevOps / SRE', e:'aA', f:'infra',
+ oq:'Cuida para que o que foi construído chegue ao ar e continue de pé: esteira de deploy, monitoramento, resposta a incidente e confiabilidade medida.',
+ dia:'Melhora a esteira que leva 40 minutos, revisa alerta, participa do plantão, conduz o post-mortem do incidente de ontem e automatiza o passo manual que causou o incidente.',
+ fer:['Docker','Kubernetes','Terraform','Jenkins/GitHub Actions','Grafana','Prometheus','Linux'],
+ prec:['Linux, rede e um pouco de tudo','Esteira de integração e entrega contínua','Observabilidade e definição de nível de serviço','Cultura de incidente sem caça às bruxas','Automação acima de heroísmo'],
+ passo:'Monte uma esteira que testa e publica um projeto seu a cada commit. Depois adicione um painel que mostre se está no ar.',
+ tr:{j:'Opera, monitora e atende chamado.',
+     p:'Automatiza esteira, instrumenta e reduz tempo de recuperação.',
+     s:'Define a prática de confiabilidade e a cultura de plantão.'},
+ vem:['back','cloud'], vai:['cloud','plataforma','mlops','dataops'],
+ mitos:[['DevOps é um cargo','É uma prática. O cargo existe porque alguém precisa implantá-la, mas o objetivo é que o time todo a adote.'],
+        ['Zero incidente é a meta','A meta é recuperar rápido. Sistema que nunca falha é sistema que ninguém usa.']]},
+
+{s:'plataforma', n:'Engenheiro de Plataforma', e:'aA', f:'infra',
+ oq:'Constrói as ferramentas internas que os outros times usam: ambiente padrão, modelo de projeto, autoatendimento. O cliente dele é o time de dentro de casa.',
+ dia:'Conversa com os times para entender o que trava, constrói o componente padrão, documenta, e mede se a adoção realmente aconteceu.',
+ fer:['Kubernetes','Terraform','Backstage','Python','Go','Git'],
+ prec:['Infraestrutura e DevOps como base','Pensar a plataforma como produto — com usuário e adoção','Documentação e suporte','Padronização sem engessar','Medir uso, não só entregar'],
+ passo:'Pegue algo que três pessoas do seu time fazem na mão e transforme em ferramenta com documentação. Depois meça quem usou.',
+ tr:{j:'Não existe.',
+     p:'Constrói e sustenta componente de plataforma.',
+     s:'Define a estratégia de plataforma interna e a experiência de quem desenvolve.'},
+ vem:['devops','cloud','engdados','mlops'], vai:['arq-dados'],
+ mitos:[['É infraestrutura com nome bonito','É produto interno. Plataforma que ninguém adota é infraestrutura cara que virou enfeite.'],
+        ['Padronizar deixa os times mais lentos','Padrão ruim deixa. Padrão bom tira do time a decisão que ele não queria tomar.']]},
+
+/* ===================== ALICERCE B ===================== */
+{s:'governanca', n:'Governança de Dados', e:'aB', f:'gov', codigo:1, planilha:1,
+ oq:'Define as regras: quem é dono de qual dado, o que cada termo significa, quem pode acessar e por quanto tempo o dado fica guardado. Transforma bagunça em acordo escrito.',
+ dia:'Conduz o comitê de dados, negocia a definição única de "cliente ativo" entre duas áreas que discordam, mantém o catálogo e revisa pedido de acesso.',
+ fer:['Catálogo de dados','Collibra/Alation','SQL','Excel','Power BI'],
+ prec:['Entender o negócio e o fluxo do dado','Glossário e catálogo','LGPD e classificação de informação','Negociação e facilitação — a parte mais difícil','Noção técnica suficiente para não propor o impraticável'],
+ passo:'Escolha cinco indicadores da sua empresa e escreva a definição exata de cada um. Leve para duas áreas e veja quantas discordâncias aparecem.',
+ tr:{j:'Mantém catálogo e apoia o comitê.',
+     p:'Conduz a definição de métrica e a política de acesso de um domínio.',
+     s:'Desenha o programa de governança e responde por ele perante a diretoria.'},
+ vem:['analista-negocios','analista-dados','qualidade'], vai:['dpo','qualidade','arq-dados'],
+ mitos:[['Governança é burocracia','Burocracia é governança feita sem dono e sem prazo. Bem feita, é o que faz dois relatórios finalmente baterem.'],
+        ['É cargo de fim de carreira','É cargo de quem tem trânsito entre áreas. Idade não tem a ver.']]},
+
+{s:'dpo', n:'DPO / Privacidade (LGPD)', e:'aB', f:'gov', codigo:1,
+ oq:'Responde pela adequação à LGPD: base legal de cada tratamento, direito do titular, resposta a incidente e relação com a autoridade. É função com responsabilidade formal.',
+ dia:'Revisa o mapeamento de tratamento de um projeto novo, responde pedido de titular, avalia risco de uma nova base e treina as áreas.',
+ fer:['LGPD','Mapeamento de tratamento','Catálogo','Excel','Ferramenta de privacidade'],
+ prec:['LGPD e regulação setorial','Mapeamento de dado pessoal e base legal','Avaliação de impacto à privacidade','Resposta a incidente e prazo de notificação','Comunicação com jurídico, tecnologia e negócio'],
+ passo:'Mapeie o tratamento de dado pessoal de um processo que você conhece: que dado, para quê, com que base legal e por quanto tempo.',
+ tr:{j:'Apoia mapeamento e atende pedido de titular.',
+     p:'Conduz avaliação de impacto e adequação de projeto.',
+     s:'Responde formalmente pela privacidade da organização.'},
+ vem:['governanca','seguranca','analista-negocios'], vai:['governanca','seguranca'],
+ mitos:[['É função só para advogado','Perfil híbrido é o mais requisitado. Quem entende dado e regra resolve mais rápido que quem só entende a regra.'],
+        ['LGPD impede usar dado','LGPD exige propósito e base legal. Projeto bem desenhado passa — o que não passa é coleta sem finalidade.']]},
+
+{s:'qualidade', n:'Qualidade de Dados', e:'aB', f:'gov', codigo:1, planilha:1,
+ oq:'Mede e melhora a confiança no dado: completude, consistência, pontualidade e regra de negócio. É quem descobre o erro antes do diretor descobrir.',
+ dia:'Cria a regra de validação, investiga a queda de preenchimento de um campo, aciona a origem, e mantém o painel de qualidade que mostra onde o dado está apodrecendo.',
+ fer:['SQL','Great Expectations','Python','Power BI','dbt tests'],
+ prec:['SQL para perfilamento de dado','Dimensões de qualidade e como medi-las','Análise de causa raiz — o erro quase sempre nasce na origem','Negociação com quem gera o dado','Noção de processo'],
+ passo:'Pegue uma tabela do seu trabalho e faça o perfilamento: nulo, duplicado, valor fora da faixa e data impossível. Leve o resultado para quem gera o dado.',
+ tr:{j:'Executa validação e reporta desvio.',
+     p:'Desenha regra, investiga causa raiz e negocia correção na origem.',
+     s:'Define o programa de qualidade e o indicador de confiança da empresa.'},
+ vem:['analista-dados','engdados','analista-negocios'], vai:['governanca','analytics-eng','dataops'],
+ mitos:[['Qualidade se resolve limpando o dado','Limpeza trata o sintoma. A correção mora na origem — normalmente numa tela com campo livre.'],
+        ['É checklist','É investigação. A pergunta é sempre por que o dado ficou assim.']]},
+
+{s:'seguranca', n:'Segurança da Informação', e:'aB', f:'seg',
+ oq:'Protege o dado de quem não deveria vê-lo: controle de acesso, criptografia, mascaramento, monitoramento e resposta a incidente. Em ambiente de dados, é quem define o que pode sair do ambiente.',
+ dia:'Revisa permissão, configura mascaramento em ambiente de desenvolvimento, investiga acesso atípico, e participa do desenho da nova plataforma antes de ela existir.',
+ fer:['IAM','SIEM','Criptografia','Linux','Redes','Cloud'],
+ prec:['Redes, sistema operacional e nuvem','Identidade, autenticação e autorização','Criptografia aplicada e mascaramento','Monitoramento e resposta a incidente','Normas e regulação do setor'],
+ passo:'Audite as permissões de um ambiente que você administra e remova tudo que não é necessário. Documente o que você tirou e por quê.',
+ tr:{j:'Opera controle, revisa acesso e atende chamado.',
+     p:'Desenha controle, investiga incidente e avalia risco de projeto.',
+     s:'Define a estratégia de segurança e responde por risco perante a diretoria.'},
+ vem:['devops','cloud','dpo'], vai:['dpo','cloud','governanca'],
+ mitos:[['Segurança atrasa o projeto','Segurança chamada no fim atrasa. Chamada no desenho, economiza retrabalho.'],
+        ['Dado anonimizado é sempre seguro','Reidentificação por cruzamento é real. Anonimização precisa ser testada, não declarada.']]},
+
+/* ===================== 01 (fecha a etapa) ===================== */
+];
+</script>
+<script>
+(function () {
+  'use strict';
+
+  var byId = {}; C.forEach(function (c) { byId[c.s] = c; });
+  var elMapa = document.getElementById('mapa');
+  var elLista = document.getElementById('lista');
+  var elAli = document.getElementById('alicerces');
+  var elQ = document.getElementById('q');
+  var elCont = document.getElementById('contador');
+  var elPainel = document.getElementById('painel');
+  var elBody = document.getElementById('p-body');
+  var elNome = document.getElementById('p-nome');
+  var elKick = document.getElementById('p-kicker');
+  var elFlags = document.getElementById('p-flags');
+  var elScrim = document.getElementById('scrim');
+  var abas = Array.prototype.slice.call(document.querySelectorAll('.aba'));
+
+  var atual = null, abaAtiva = 0, filtros = {}, termo = '';
+
+  function esc(t) {
+    return String(t).replace(/[&<>"]/g, function (m) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m];
+    });
+  }
+  function brl(v) { return 'R$ ' + v.toLocaleString('pt-BR'); }
+
+  /* ---------- montagem do mapa ---------- */
+  function botao(c) {
+    return '<button class="station" data-s="' + c.s + '"' +
+      (c.porta ? ' data-porta="1"' : '') + (c.mine ? ' data-mine="1"' : '') +
+      '><i class="s-dot"></i><span>' + esc(c.n) + '</span></button>';
+  }
+  function coluna(et, comCabecalho) {
+    var itens = C.filter(function (c) { return c.e === et.id; });
+    return '<div class="col" data-e="' + et.id + '">' +
+      (comCabecalho ? '<div class="col__h"><span class="col__n mono">' + et.n + '</span>' +
+        '<div class="col__t">' + esc(et.t) + '</div>' +
+        '<span class="col__s">' + esc(et.s) + '</span></div>' : '') +
+      itens.map(botao).join('') + '</div>';
+  }
+  elMapa.innerHTML = ETAPAS.map(function (e) { return coluna(e, true); }).join('');
+  elLista.innerHTML = ETAPAS.map(function (e) { return coluna(e, true); }).join('');
+  elAli.innerHTML = ALICERCES.map(function (a) {
+    var itens = C.filter(function (c) { return c.e === a.id; });
+    return '<div class="alicerce"><h3>' + esc(a.t) + '</h3><p>' + esc(a.s) + '</p>' +
+      '<div class="row">' + itens.map(botao).join('') + '</div></div>';
+  }).join('');
+
+  /* ---------- busca e filtros ---------- */
+  function texto(c) {
+    return [c.n, c.oq, c.dia, c.passo, c.fer.join(' '), c.prec.join(' '),
+      c.tr.j, c.tr.p, c.tr.s,
+      c.mitos.map(function (m) { return m[0] + ' ' + m[1]; }).join(' ')]
+      .join(' ').toLowerCase();
+  }
+  function passa(c) {
+    if (filtros.porta && !c.porta) return false;
+    if (filtros.vagas && !c.vagas) return false;
+    if (filtros.codigo && !c.codigo) return false;
+    if (filtros.planilha && !c.planilha) return false;
+    if (termo && texto(c).indexOf(termo) === -1) return false;
+    return true;
+  }
+  function visiveis() { return C.filter(passa); }
+
+  function aplicar() {
+    var n = 0;
+    C.forEach(function (c) {
+      var ok = passa(c);
+      if (ok) n++;
+      Array.prototype.forEach.call(
+        document.querySelectorAll('.station[data-s="' + c.s + '"]'),
+        function (b) { b.classList.toggle('off', !ok); }
+      );
+    });
+    elCont.textContent = n + ' de ' + C.length;
+  }
+
+  elQ.addEventListener('input', function () {
+    termo = elQ.value.trim().toLowerCase(); aplicar();
+  });
+  document.getElementById('filtros').addEventListener('click', function (ev) {
+    var b = ev.target.closest('.fchip'); if (!b) return;
+    var f = b.getAttribute('data-f');
+    filtros[f] = !filtros[f];
+    b.setAttribute('aria-pressed', filtros[f] ? 'true' : 'false');
+    aplicar();
+  });
+
+  /* ---------- conteúdo do painel ---------- */
+  function barra(par) {
+    if (!par) return '';
+    var a = par[0] / TETO * 100, b = par[1] / TETO * 100;
+    return '<div class="barra"><i style="left:' + a.toFixed(1) + '%;width:' +
+      Math.max(b - a, 1.5).toFixed(1) + '%"></i></div>';
+  }
+  function linhaFaixa(rot, par) {
+    return '<div class="faixa__r"><div class="faixa__t"><span>' + rot + '</span>' +
+      '<span class="faixa__v">' + (par ? brl(par[0]) + ' – ' + brl(par[1]) : 'quase não existe') +
+      '</span></div>' + barra(par) + '</div>';
+  }
+
+  var render = [
+    /* 0 — O que é */
+    function (c) {
+      return '<div class="blk"><h4>O que faz</h4><p class="lead">' + esc(c.oq) + '</p></div>' +
+        '<div class="blk"><h4>Um dia comum</h4><p>' + esc(c.dia) + '</p></div>' +
+        '<div class="blk"><h4>Ferramentas</h4><div class="tools">' +
+          c.fer.map(function (f) { return '<span class="tool">' + esc(f) + '</span>'; }).join('') +
+        '</div></div>' +
+        '<div class="blk"><h4>O que precisa saber</h4><ul class="lst">' +
+          c.prec.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') +
+        '</ul></div>' +
+        '<div class="blk"><div class="passo"><b>Primeiro passo</b>' + esc(c.passo) + '</div></div>';
+    },
+    /* 1 — Trilha */
+    function (c) {
+      var n = [['01', 'Entrada / júnior', c.tr.j], ['02', 'Pleno', c.tr.p], ['03', 'Sênior', c.tr.s]];
+      return '<div class="blk"><h4>Trilha por nível</h4>' +
+        n.map(function (x) {
+          return '<div class="nivel"><div class="nivel__h"><span class="nivel__n mono">' + x[0] +
+            '</span><span class="nivel__t">' + x[1] + '</span></div><p>' + esc(x[2]) + '</p></div>';
+        }).join('') + '</div>' +
+        '<div class="blk"><div class="passo"><b>Por onde começar</b>' + esc(c.passo) + '</div></div>';
+    },
+    /* 2 — Migração */
+    function (c) {
+      function lista(arr, vazio) {
+        if (!arr.length) return '<p>' + vazio + '</p>';
+        return '<div class="mig">' + arr.map(function (s) {
+          return byId[s] ? '<button data-ir="' + s + '">' + esc(byId[s].n) + '</button>' : '';
+        }).join('') + '</div>';
+      }
+      return '<div class="blk"><h4>De onde as pessoas costumam vir</h4>' +
+        lista(c.vem, 'Normalmente é um ponto de partida — pouca gente chega aqui vinda de outra carreira do mapa.') +
+        '</div><div class="blk"><h4>Para onde costumam ir depois</h4>' +
+        lista(c.vai, 'Caminho de saída menos trilhado.') +
+        '</div><div class="blk"><p>Clique em qualquer carreira acima para trocar o painel. ' +
+        'Migração aqui é o caminho comum — não é regra, e quase ninguém faz em linha reta.</p></div>';
+    },
+    /* 3 — Mercado */
+    function (c) {
+      var f = FAIXAS[c.f];
+      return '<div class="blk"><h4>Faixa salarial · família “' + esc(f.t) + '”' +
+          (f.estimado ? '<span class="selo">estimado</span>' : '') + '</h4>' +
+        '<div class="faixa">' + linhaFaixa('Entrada', f.e) + linhaFaixa('Pleno', f.p) +
+          linhaFaixa('Sênior', f.s) + '</div>' +
+        (f.nota ? '<p>' + esc(f.nota) + '</p>' : '') +
+        '<p class="fonte">R$/mês, bruto, Brasil · consulta em outubro de 2026 · fonte: ' +
+          (f.url ? '<a href="' + f.url + '" target="_blank" rel="noopener">' + esc(f.fonte) + '</a>'
+                 : esc(f.fonte)) +
+        '<br>A barra usa a mesma escala (até ' + brl(TETO) + ') em todas as carreiras — senão a ' +
+        'comparação mente. Faixa é referência, não promessa: pesquisa pública de salário tem viés ' +
+        'de quem respondeu.</p></div>';
+    },
+    /* 4 — Mitos */
+    function (c) {
+      return '<div class="blk"><h4>Duas crenças que travam quem está começando</h4>' +
+        '<ul class="lst lst--mito">' + c.mitos.map(function (m) {
+          return '<li><span><b>' + esc(m[0]) + '</b>' + esc(m[1]) + '</span></li>';
+        }).join('') + '</ul></div>';
+    }
+  ];
+
+  function pintarAba() {
+    abas.forEach(function (a, i) {
+      a.setAttribute('aria-selected', i === abaAtiva ? 'true' : 'false');
+    });
+    elBody.innerHTML = render[abaAtiva](atual);
+    elBody.scrollTop = 0;
+  }
+
+  function etapaDe(c) {
+    var e = ETAPAS.concat(ALICERCES).filter(function (x) { return x.id === c.e; })[0];
+    return e ? (e.n ? e.n + ' · ' + e.t : e.t) : '';
+  }
+
+  function abrir(slug, hash) {
+    var c = byId[slug]; if (!c) return;
+    atual = c;
+    elNome.textContent = c.n;
+    elKick.innerHTML = '<span>' + esc(etapaDe(c)) + '</span>';
+    var fl = [];
+    if (c.mine) fl.push('<span class="flag flag--mine">onde eu trabalho</span>');
+    if (c.porta) fl.push('<span class="flag">porta de entrada</span>');
+    if (c.vagas) fl.push('<span class="flag">muita vaga</span>');
+    if (c.codigo) fl.push('<span class="flag">pouco código</span>');
+    if (c.planilha) fl.push('<span class="flag">dá pra vir da planilha</span>');
+    elFlags.innerHTML = fl.join('');
+    elPainel.hidden = false;
+    document.documentElement.classList.add('pnl-open');
+    pintarAba();
+    Array.prototype.forEach.call(document.querySelectorAll('.station'), function (b) {
+      b.setAttribute('aria-current', b.getAttribute('data-s') === slug ? 'true' : 'false');
+    });
+    if (hash !== false && history.replaceState) history.replaceState(null, '', '#c=' + slug);
+  }
+
+  function fechar() {
+    document.documentElement.classList.remove('pnl-open');
+    atual = null;
+    Array.prototype.forEach.call(document.querySelectorAll('.station'), function (b) {
+      b.setAttribute('aria-current', 'false');
+    });
+    if (history.replaceState) history.replaceState(null, '', location.pathname);
+    setTimeout(function () { if (!atual) elPainel.hidden = true; }, 280);
+  }
+
+  function vizinha(d) {
+    var v = visiveis(); if (!atual || !v.length) return;
+    var i = v.map(function (c) { return c.s; }).indexOf(atual.s);
+    if (i === -1) { abrir(v[0].s); return; }
+    abrir(v[(i + d + v.length) % v.length].s);
+  }
+
+  /* ---------- eventos ---------- */
+  document.addEventListener('click', function (ev) {
+    var st = ev.target.closest('.station');
+    if (st) { abrir(st.getAttribute('data-s')); return; }
+    var ir = ev.target.closest('[data-ir]');
+    if (ir) { abrir(ir.getAttribute('data-ir')); return; }
+    var ab = ev.target.closest('.aba');
+    if (ab) { abaAtiva = +ab.getAttribute('data-aba'); pintarAba(); return; }
+  });
+  document.getElementById('fechar').addEventListener('click', fechar);
+  elScrim.addEventListener('click', fechar);
+
+  document.getElementById('copiar').addEventListener('click', function () {
+    var b = this;
+    var url = location.origin + location.pathname + '#c=' + (atual ? atual.s : '');
+    function ok() { b.textContent = 'Link copiado'; setTimeout(function () {
+      b.textContent = 'Copiar link desta carreira'; }, 1800); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(ok, function () { prompt('Copie o link:', url); });
+    } else { prompt('Copie o link:', url); }
+  });
+
+  document.addEventListener('keydown', function (ev) {
+    var dentro = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName);
+    if (ev.key === '/' && !dentro) { ev.preventDefault(); elQ.focus(); elQ.select(); return; }
+    if (ev.key === 'Escape') {
+      if (dentro && document.activeElement === elQ) { elQ.blur(); return; }
+      if (atual) fechar();
+      return;
+    }
+    if (!atual || dentro) return;
+    if (ev.key === 'ArrowRight') { ev.preventDefault(); vizinha(1); }
+    if (ev.key === 'ArrowLeft') { ev.preventDefault(); vizinha(-1); }
+  });
+
+  /* ---------- início ---------- */
+  aplicar();
+  var h = (location.hash || '').match(/^#c=([a-z0-9-]+)$/i);
+  if (h && byId[h[1]]) abrir(h[1], false);
+})();
+</script>
